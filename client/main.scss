@@ -7,7 +7,9 @@
 }
 
 #camera {
-  top: 10vh;
+  margin-left: 7%;
+  border: 2px;
+  border-color: black;
 }
 
 #stepComplete {
@@ -41,10 +43,8 @@
 #step-activity-title {
   font-size: 50px;
   font-weight: bold;
-  top: 20vh;
+  margin-top:20px;
   text-align:center;
-  padding: auto;
-  margin: auto;
   display: block;
   color: white;
 }
@@ -61,14 +61,40 @@
 }
 
 #step-do-mission-btn {
-  position: fixed;
   font-size: 30px;
+  text-align: center;
+  font-weight: bold;
   width: 70%;
-  top: 75vh;
+  padding: 5%;
+  margin-top: 520px;
+  margin-left:52px;
+  background-color: #FCB314;
+  display: block;
+  color: white;
+}
+
+#step-photo-mission-btn {
+  font-size: 30px;
+  text-align: center;
+  font-weight: bold;
+  width: 70%;
   padding: 5%;
   margin-top: 100px;
+  margin-left:52px;
   background-color: #FCB314;
-  margin: 0 auto;
+  display: block;
+  color: white;
+}
+
+#step-finish-mission-btn {
+  font-size: 30px;
+  text-align: center;
+  font-weight: bold;
+  width: 70%;
+  padding: 5%;
+  margin-top: 400px;
+  margin-left:52px;
+  background-color: #FCB314;
   display: block;
   color: white;
 }
@@ -212,6 +238,7 @@
 
 #step-form-input {
   font-size:16px;
+  color:black;
   display:block;
   padding:5%;
   margin: 0 auto;

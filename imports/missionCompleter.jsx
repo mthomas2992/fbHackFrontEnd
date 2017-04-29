@@ -177,9 +177,9 @@ class MissionCompleter extends React.Component {
             var currId = this.state.steps[s].id;
             var interpretStatus = this.state.verificationStatus
             if (interpretStatus=="Next Step"){
-              interpretStatus = "Take photo"
+              interpretStatus = "Take Photo"
             }
-            body= <div className = "col-xs-12" id="step-do-subtitle">
+            body= <div className = "col-xs-12">
                       <div className = "row" id="camera">
                         <Webcam
                           screenshotFormat = 'image/jpeg'
@@ -187,7 +187,7 @@ class MissionCompleter extends React.Component {
                           height='300'
                           ref={camRef}/>
                       </div>
-                      <div className = "row"
+                      <div className = "row" id="step-photo-mission-btn"
                         onClick={()=>{this.nextStep(s+2,currId,this.state[camRef],
                         "camera",camRef)}}> {interpretStatus}</div>
                   </div>
@@ -221,10 +221,11 @@ class MissionCompleter extends React.Component {
 
         steps.push(<Element name={""+(s+2)+""}>
                     <div id="stepComplete" className = "row">
-                      <div className = "col-xs-12">
+                      <div className = "col-xs-12" id="step-do-title">
                         Mission complete
                       </div>
-                      <div onClick={()=>{this.finishMission()}}> Back home</div>
+                      <div id="step-finish-mission-btn"
+                        onClick={()=>{this.finishMission()}}> Back home</div>
                     </div>
                   </Element>);
 
