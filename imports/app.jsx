@@ -288,8 +288,16 @@ class App extends React.Component {
             <div className="row" id = "topHeader">
               <div className = "col-xs-8" id = "nameEditing">
                 <Validation.components.Form onSubmit={this.handleSubmit}>
-                  <Validation.components.Input id="formInput" name="name" type="text" value={this.state.name} onChange={this.handleChange} placeholder={"Name"} validations={['required']}/>
-                  <Validation.components.Input id="formInput" name="desc" type="text" value={this.state.desc} onChange={this.handleChange} placeholder={"Desc"} validations={['required']}/>
+                  <Validation.components.Input
+                    id="formInput" name="name"
+                    type="text" value={this.state.name}
+                    onChange={this.handleChange}
+                    placeholder={"Name"} validations={['required']}/>
+                  <Validation.components.Input
+                    id="formInput" name="desc"
+                    type="text" value={this.state.desc}
+                    onChange={this.handleChange}
+                    placeholder={"Desc"} validations={['required']}/>
                 </Validation.components.Form>
                 <PlacesAutocomplete
                     value={this.state.address}
@@ -310,7 +318,7 @@ class App extends React.Component {
             </div>
             <div className= "row" id = "submitMission">
               <Validation.components.Form onSubmit={this.handleSubmit}>
-                <input type="submit" value="Submit mission" id="submitButton" />
+                <input id="create-mission-btn" type="submit" value="Create Mission"/>
               </Validation.components.Form>
             </div>
             <AddStep enable = {this.state.popup} addStep = {this.addStep} hidePopup={this.hidePopup}/>
