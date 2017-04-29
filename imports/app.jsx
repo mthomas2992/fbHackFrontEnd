@@ -50,6 +50,7 @@ class App extends React.Component {
       super(props);
       this.state = {
         currUserID:3,
+        profiles: null,
         missions: null,
         newMissionSteps:null,
         popup:false,
@@ -85,10 +86,13 @@ class App extends React.Component {
       this.handleSelect = this.handleSelect.bind(this);
       this.handleChangeMaps = this.handleChangeMaps.bind(this);
       this.startMission = this.startMission.bind(this);
+
+      this.goToProfile = this.goToProfile.bind(this);
     };
 
     componentWillMount(){
       this.loadMissions();
+      this.loadProfiles();
     }
 
     loadMissions(){
@@ -99,6 +103,17 @@ class App extends React.Component {
       Meteor.call('getSteps',function (err,res){
         self.setState({steps:res});
       })
+    }
+
+    loadProfiles(){
+        var self = this;
+        Meteor.call('getProfiles', function (err,res) {
+            self.setState({profiles:res});
+        })
+    }
+
+    getProfiles(){
+        return this.state.profiles;
     }
 
     //autocomplete place maps
@@ -158,6 +173,10 @@ class App extends React.Component {
 
       this.setState({newMission:newMissionToBePosted});
       this.setState({confirmMission:true});
+    }
+
+    goToProfile(){
+      FlowRouter.go('/profile');
     }
 
     submitLoginForm(event) {
@@ -278,6 +297,34 @@ class App extends React.Component {
       }
     }
 
+    getCompletedMissions() {
+        if (this.state.profiles) {
+            var compMissArr = this.state.profiles.filter((obj) => {
+                return obj.email === this.state.login_email;
+            });
+            if (compMissArr.length > 0) {
+                compMissArr = compMissArr[0].completed_missions;
+            } else {
+                return [];
+            }
+            console.log(compMissArr);
+
+            retArr = []
+            console.log(this.state.missions);
+
+            var match;
+            for (i = 0; i < compMissArr.length; i++) {
+                match = this.state.missions.filter((obj) => {
+                    return obj.id == compMissArr[i];
+                })
+                if (match.length > 0)
+                    retArr.push(match[0])
+            }
+            console.log(retArr);
+            return retArr;
+        }
+    }
+
     render() {
       const AutocompleteItem = ({ formattedSuggestion }) => (
         <div className="Demo__suggestion-item">
@@ -394,6 +441,9 @@ class App extends React.Component {
                         afterSlide={this.afterSlide}>
                         {carouselElements}
                       </Carousel>
+                    </div>
+                    <div onClick={()=>{this.goToProfile()}} id="myProfile">
+                      <img id="myProfileImgSrc" src="https://www.book2trip.com/template/website/img/profile.png"></img>
                     </div>
                 </div>);
       } else if (this.props.path == "missionCreator"){
@@ -528,6 +578,65 @@ class App extends React.Component {
                 </div></div>)
       } else if (this.props.path == "missionCompleter"){
         return (<div className = "container-fluid"> <MissionCompleter userID = {this.state.currUserID} missionDetails={this.state.currentMissionDetails}/></div>)
+    } else if (this.props.path == "profile") {
+
+      var completedMissions = this.getCompletedMissions();
+
+      var missionDivs = new Array();
+      for (i = 0; i < completedMissions.length; i++)
+          missionDivs.push(
+              <div className="profile-comp-missions">
+                  <div>
+                      <p><b>{completedMissions[i].desc}</b></p>
+                      <p>{completedMissions[i].name}</p>
+                  </div>
+              </div>
+          );
+
+      var profile = this.getProfiles().filter((obj) => {
+          return obj.email === this.state.login_email;
+      });
+
+      var currentMissionArr = this.state.missions.filter((obj) => {
+          return obj.id === profile.current_mission;
+      }) || [];
+
+      var hideCurrent = true;
+      var currentMission;
+      if (currentMissionArr.length > 0) {
+          hideCurrent = false;
+          currentMission = currentMissionArr[0];
+      }
+
+      var cm_name = (currentMission && currentMission.name) || "";
+      var cm_desc = (currentMission && currentMission.desc) || "";
+
+      return (
+          <div className="container-fluid" id="profile-page">
+            <div className="row" id="top-header">
+              <div id="left-col">
+                  <img className="img-circle" src="http://blogs.timesofindia.indiatimes.com/wp-content/uploads/2015/12/mark-zuckerberg.jpg"/>
+                  <p>{profile.first_name} {profile.last_name}</p>
+              </div>
+              <div id="right-col">
+                  <h1>${profile.amount}</h1>
+                  <button>Edit Info</button>
+              </div>
+            </div>
+            <div className="row" id="body-div">
+              <div id="current-mission" hidden={hideCurrent}>
+                  <div>
+                      <h3>Your Offered Mission</h3>
+                      <p><b>{cm_name}</b></p>
+                      <p>{cm_desc}</p>
+                  </div>
+              </div>
+
+              {missionDivs}
+
+            </div>
+          </div>
+      );
       } else {
         return (<div>404</div>)
       }
