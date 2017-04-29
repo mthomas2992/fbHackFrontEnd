@@ -8,6 +8,12 @@ FlowRouter.route('/', {
   }
 });
 
+FlowRouter.route('/login', {
+  action(params, queryParams) {
+    ReactDOM.render(<App path="login"/>, document.getElementById('app'));
+  }
+});
+
 FlowRouter.route('/register', {
   action(params, queryParams) {
     ReactDOM.render(<App path="register"/>, document.getElementById('app'));

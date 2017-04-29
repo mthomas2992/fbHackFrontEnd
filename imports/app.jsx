@@ -45,7 +45,8 @@ class App extends React.Component {
         currentMissionDetails:null,
         currentMissionSteps:null,
         login_email:"",
-        login_password:""
+        login_password:"",
+        not_failed:true
       }
 
       this.handleSubmit = this.handleSubmit.bind(this);
@@ -57,7 +58,7 @@ class App extends React.Component {
       this.loadMissions = this.loadMissions.bind(this);
       this.hideConfirm = this.hideConfirm.bind(this);
 
-      this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
+      this.submitLoginForm = this.submitLoginForm.bind(this);
       this.handleSelect = this.handleSelect.bind(this);
       this.handleChangeMaps = this.handleChangeMaps.bind(this);
       this.startMission = this.startMission.bind(this);
@@ -137,10 +138,29 @@ class App extends React.Component {
       this.setState({confirmMission:true});
     }
 
-    handleLoginSubmit(event) {
+    submitLoginForm(event) {
         event.preventDefault();
-        console.log(this.state);
         console.log(event);
+
+        const login_email = ReactDOM.findDOMNode(this.refs.login_email).value.trim();
+        const login_password = ReactDOM.findDOMNode(this.refs.login_password).value.trim();
+
+        console.log(login_email);
+        console.log(login_password);
+
+        var self = this;
+
+        Meteor.call('isValidLogin', login_email, login_password, function (err,res){
+          if (res) {
+              self.setState({not_failed:true});
+              FlowRouter.go('/home');
+          } else {
+              self.setState({not_failed:false});
+          }
+        })
+
+        ReactDOM.findDOMNode(this.refs.login_email).value = '';
+        ReactDOM.findDOMNode(this.refs.login_password).value = '';
     }
 
     handleChange(event) {
@@ -219,16 +239,17 @@ class App extends React.Component {
       } else if (this.props.path == "landing") {
           return (
           <div className="container-fluid" id="landing-page">
-           <div className="row">
-                <h1>Welcome</h1>
-                <Validation.components.Form onSubmit={this.handleLoginSubmit}>
-                  <h2>Email</h2>
-                  <Validation.components.Input id="formInput" name="login_email" type="text" value={this.state.login_email} onChange={this.handleChange} placeholder={"Email"} validations={['required']}/>
-                  <h2>Password</h2>
-                  <Validation.components.Input id="formInput" name="login_password" type="text" value={this.state.login_password} onChange={this.handleChange} placeholder={"Password"} validations={['required']}/>
-                  <br/>
-                  <Validation.components.Input id="formInput" type="submit" value="Login!"/>
-                </Validation.components.Form>
+            <div className="row">
+               <h1>Welcome</h1>
+               <h3 hidden={this.state.not_failed}>Login Failed</h3>
+                <form onSubmit={this.submitLoginForm}>
+                    <h2>Email</h2>
+                    <input type="text" ref="login_email"/>
+                    <h2>Password</h2>
+                    <input type="password" ref="login_password"/>
+                    <br/>
+                    <input type="submit" value="Login!"/>
+                </form>
                 <p>No account? Register here</p>
             </div>
           </div>
