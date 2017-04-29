@@ -19,6 +19,8 @@ class Location extends React.Component {
         imageLink : icon_links[props.type],
       }
     };
+    //<img style={{width: 40}} src={this.state.imgLink}> </img>
+
 
     render() {
       return (<div>
