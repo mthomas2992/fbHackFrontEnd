@@ -23,7 +23,7 @@ Meteor.startup(() => {
     // },
 
     'getMissions' :function() {
-      var queryString = "https://fbht17.herokuapp.com/missions/";
+      var queryString = "https://fbht17.herokuapp.com/missions";
       var result = HTTP.get(queryString);
       //console.log(result);
 
