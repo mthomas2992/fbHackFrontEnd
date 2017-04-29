@@ -39,7 +39,8 @@ class App extends React.Component {
         confirmMission:false,
         address:"",
         steps: null,
-        addressList: null
+        addressList: null,
+        currentMissionDetails:null
       }
 
       this.handleSubmit = this.handleSubmit.bind(this);
@@ -177,8 +178,9 @@ class App extends React.Component {
           <strong>{formattedSuggestion.mainText}</strong>{' '}
           <small className="text-muted">{formattedSuggestion.secondaryText}</small>
         </div>);
-
-      if (this.props.path == "home"){
+      if (this.state.missions==null){
+        return (<div>loading....</div>)
+      } else if (this.props.path == "home"){
         var test = Geolocation.latLng();
         console.log(test);
         var currLocations = new Array();
@@ -286,7 +288,29 @@ class App extends React.Component {
           </div>
         )
       } else if (this.props.path=="missionDetails"){
-        return (<div>Mission Details</div>)
+        //get currentMisssion info from given ID
+        var currentMissionDetails = this.state.currentMissionDetails;
+        if (currentMissionDetails == null){
+          for (l=0;l<this.state.missions.length;l++){
+            if (this.state.missions[l].id==this.props.queryParams.id){
+              this.setState({currentMissionDetails:this.state.missions[l]});
+              currentMissionDetails=this.state.missions[l];
+              break;
+            }
+          }
+        }
+        console.log(currentMissionDetails);
+        return (<div className = "container-fluid">
+                  <div className="row" id = "missionDetailsTopper">
+                    Title : {currentMissionDetails.name}
+                  </div>
+                  <div className= "row" id="stepBodyInfo">
+
+                  </div>
+                  <div className="row" id="startMission">
+                    Start Mission
+                  </div>
+                </div>)
       } else {
         return (<div>404</div>)
       }

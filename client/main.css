@@ -12,6 +12,19 @@
   border-style: dashed;
   border-color: black;
 }
+#missionDetailsTopper {
+  height: 30vh;
+  width: 100vw;
+  border-style: dashed;
+  border-color: black;
+}
+
+#stepBodyInfo {
+  height: 55vh;
+  width: 100vw;
+  border-style: dashed;
+  border-color: black;
+}
 
 #stepSection {
   height: 55vh;
@@ -123,4 +136,13 @@
 #dotted-border {
   border-color: black;
   border-style: dashed;
+}
+
+#startMission {
+  border-color: black;
+  border-style: dashed;
+  height: 15vh;
+  width: 100vw;
+  border-style: dashed;
+  border-color: black;
 }
