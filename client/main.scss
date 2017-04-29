@@ -6,6 +6,72 @@
   width: 100vw;
 }
 
+#camera {
+  top: 10vh;
+}
+
+#stepComplete {
+  height: 100vh;
+  width: 100vw;
+  background-color: #80ada0;
+  border-style: dashed;
+  border-color: black;
+}
+
+#step-do-title {
+  font-size: 50px;
+  text-align: center;
+  top: 30vh;
+  margin: auto;
+  display: block;
+  color: white;
+}
+
+#step-do-subtitle {
+  font-size: 40px;
+  font-weight: bold;
+  top: 40vh;
+  text-align:center;
+  padding: auto;
+  margin: auto;
+  display: block;
+  color: white;
+}
+
+#step-activity-title {
+  font-size: 50px;
+  font-weight: bold;
+  top: 20vh;
+  text-align:center;
+  padding: auto;
+  margin: auto;
+  display: block;
+  color: white;
+}
+
+#step-activity-subtitle {
+  font-size: 35px;
+  font-weight: bold;
+  top: 20vh;
+  text-align:center;
+  padding: auto;
+  margin: auto;
+  display: block;
+  color: white;
+}
+
+#step-do-mission-btn {
+  position: fixed;
+  font-size: 30px;
+  width: 70%;
+  top: 75vh;
+  padding: 5%;
+  margin-top: 100px;
+  background-color: #FCB314;
+  margin: 0 auto;
+  display: block;
+  color: white;
+}
 
 #mission-otw-name {
   font-size: 30px;
@@ -269,13 +335,6 @@
 
 #startMission {
   height: 15vh;
-  width: 100vw;
-  border-style: dashed;
-  border-color: black;
-}
-
-#stepComplete {
-  height: 100vh;
   width: 100vw;
   border-style: dashed;
   border-color: black;
