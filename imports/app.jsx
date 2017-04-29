@@ -46,6 +46,10 @@ class App extends React.Component {
         currentMissionSteps:null,
         login_email:"",
         login_password:"",
+        reg_email:"",
+        reg_password:"",
+        reg_first_name:"",
+        reg_last_name:"",
         not_failed:true
       }
 
@@ -59,6 +63,7 @@ class App extends React.Component {
       this.hideConfirm = this.hideConfirm.bind(this);
 
       this.submitLoginForm = this.submitLoginForm.bind(this);
+      this.submitRegisterForm = this.submitRegisterForm.bind(this);
       this.handleSelect = this.handleSelect.bind(this);
       this.handleChangeMaps = this.handleChangeMaps.bind(this);
       this.startMission = this.startMission.bind(this);
@@ -163,6 +168,36 @@ class App extends React.Component {
         ReactDOM.findDOMNode(this.refs.login_password).value = '';
     }
 
+    submitRegisterForm(event) {
+        event.preventDefault();
+        console.log(event);
+
+        console.log("processing registration");
+        const reg_email = ReactDOM.findDOMNode(this.refs.reg_email).value.trim();
+        const reg_password = ReactDOM.findDOMNode(this.refs.reg_password).value.trim();
+        const reg_first_name = ReactDOM.findDOMNode(this.refs.reg_first_name).value.trim();
+        const reg_last_name = ReactDOM.findDOMNode(this.refs.reg_last_name).value.trim();
+
+        var self = this;
+
+        Meteor.call('createProfile', reg_email, reg_password, reg_first_name, reg_last_name, function (err,res){
+            self.setState({not_failed:true});
+            FlowRouter.go('/home');
+        // TODO: Handle 400s for profile creation
+        //   if (res) {
+        //       self.setState({not_failed:true});
+        //       FlowRouter.go('/home');
+        //   } else {
+        //       self.setState({not_failed:false});
+        //   }
+        })
+
+        ReactDOM.findDOMNode(this.refs.reg_email).value = '';
+        ReactDOM.findDOMNode(this.refs.reg_password).value = '';
+        ReactDOM.findDOMNode(this.refs.reg_first_name).value = '';
+        ReactDOM.findDOMNode(this.refs.reg_last_name).value = '';
+    }
+
     handleChange(event) {
       const target = event.target;
       const value = target.value;
@@ -250,9 +285,30 @@ class App extends React.Component {
                     <br/>
                     <input type="submit" value="Login!"/>
                 </form>
-                <p>No account? Register here</p>
+                <a href="/register">No account? Register here</a>
             </div>
           </div>
+          );
+      } else if (this.props.path == "register") {
+          return (
+              <div className="container-fluid" id="register-page">
+                <div className="row">
+                   <h1>Register Here</h1>
+                    <form onSubmit={this.submitRegisterForm}>
+                        <h2>Email</h2>
+                        <input type="text" ref="reg_email"/>
+                        <h2>Password</h2>
+                        <input type="password" ref="reg_password"/>
+                        <h2>First Name</h2>
+                        <input type="text" ref="reg_first_name"/>
+                        <h2>Last Name</h2>
+                        <input type="text" ref="reg_last_name"/>
+                        <br/>
+                        <input type="submit" value="Register!"/>
+                    </form>
+                    <a href="/">Got an account? Login here</a>
+                </div>
+              </div>
           );
       } else if (this.props.path == "home"){
         var currLocations = new Array();
