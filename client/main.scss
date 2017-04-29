@@ -1,6 +1,5 @@
 /* CSS declarations go here */
 
-
 #mainMap {
   height: 75vh;
   width: 100vw;
@@ -224,9 +223,10 @@
   border-color: black;
 }
 
-#stepComplete {
-  height: 100vh;
-  width: 100vw;
-  border-style: dashed;
-  border-color: black;
+#landing-page {
+    height: 100vh;
+    background-color: #3b5998;
+    padding-right: 20%;
+    padding-left: 20%;
+    text-align: center;
 }
