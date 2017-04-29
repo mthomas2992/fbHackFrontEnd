@@ -176,7 +176,7 @@ class App extends React.Component {
     }
 
     goToProfile(){
-      FlowRouter.go('/profile');
+      FlowRouter.go('/profile?login_email=' + this.props.queryParams.login_email);
     }
 
     submitLoginForm(event) {
@@ -194,7 +194,7 @@ class App extends React.Component {
         Meteor.call('isValidLogin', login_email, login_password, function (err,res){
           if (res) {
               self.setState({not_failed:true});
-              FlowRouter.go('/home');
+              FlowRouter.go('/home?login_email=' + login_email);
           } else {
               self.setState({not_failed:false});
           }
@@ -375,6 +375,7 @@ class App extends React.Component {
               </div>
           );
       } else if (this.props.path == "home"){
+
         var currLocations = new Array();
         var carouselElements = new Array();
         var jobTypes=[0,0,0,0,0];
@@ -582,6 +583,7 @@ class App extends React.Component {
       return (<div className = "container-fluid"> <MissionAnalytics missionActive = {this.props.queryParams.id}/></div>)
     } else if (this.props.path == "profile") {
 
+      console.log("yyy: " + this.props.queryParams.login_email);
       var completedMissions = this.getCompletedMissions();
 
       var missionDivs = new Array();
@@ -595,14 +597,19 @@ class App extends React.Component {
               </div>
           );
 
+      console.log(this.getProfiles());
+      //console.log(this.state.currUserID);
+
       var profile = this.getProfiles().filter((obj) => {
-          return obj.email === this.state.login_email;
-      });
+          return obj.email === this.props.queryParams.login_email;
+      })[0];
 
       var currentMissionArr = this.state.missions.filter((obj) => {
           return obj.id === profile.current_mission;
       }) || [];
-
+    //   console.log(profile);
+    //   profile = profile[0] ? profile.length > 0 : {first_name:"", last_name:""};
+    //   console.log(profile);
       var hideCurrent = true;
       var currentMission;
       if (currentMissionArr.length > 0) {

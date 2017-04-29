@@ -22,13 +22,13 @@ FlowRouter.route('/register', {
 
 FlowRouter.route('/profile', {
   action(params, queryParams) {
-    ReactDOM.render(<App path="profile"/>, document.getElementById('app'));
+    ReactDOM.render(<App path="profile" queryParams={queryParams}/>, document.getElementById('app'));
   }
 });
 
 FlowRouter.route('/home', {
   action(params, queryParams) {
-    ReactDOM.render(<App path="home"/>, document.getElementById('app'));
+    ReactDOM.render(<App path="home" queryParams = {queryParams}/>, document.getElementById('app'));
   }
 });
 
