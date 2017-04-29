@@ -6,6 +6,73 @@
   width: 100vw;
 }
 
+#topHeader{
+  height: 30vh;
+  width: 100vw;
+  border-style: dashed;
+  border-color: black;
+}
+
+#stepSection {
+  height: 55vh;
+  width: 100vw;
+  border-style: dashed;
+  border-color: black;
+}
+
+#submitMission {
+  height: 15vh;
+  width: 100vw;
+  border-style: dashed;
+  border-color: black;
+}
+
+#nameEditing {
+  border-style: dashed;
+  border-color: black;
+}
+
+#cost {
+  border-style: dashed;
+  border-color: black;
+}
+
+#stepPlaceHolder {
+  border-style: dashed;
+  border-color: grey;
+  height: 10vh;
+  width: 90vw;
+  margin: 15px;
+}
+
+#popUp {
+  position: fixed;
+  top: 35vh;
+  left: 22px;
+  width: 90vw;
+  height: 50vh;
+
+  background-color: red;
+}
+
+#step {
+  border-style: dashed;
+  border-color: grey;
+  height: 10vh;
+  width: 90vw;
+  margin: 15px;
+}
+
+#confirmMission {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+
+  background-color: red;
+}
+
 #loc-icon {
   height:40px;
   width: 40px;
