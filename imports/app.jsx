@@ -17,7 +17,7 @@ import ConfirmMission from '/imports/confirmMission.jsx';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import {geocodeByAddress} from 'react-places-autocomplete';
 
-import MissionComplete from '/imports/missionCompleter.jsx';
+import MissionCompleter from '/imports/missionCompleter.jsx';
 
 
 
@@ -57,6 +57,7 @@ class App extends React.Component {
 
       this.handleSelect = this.handleSelect.bind(this);
       this.handleChangeMaps = this.handleChangeMaps.bind(this);
+      this.startMission = this.startMission.bind(this);
     };
 
     componentWillMount(){
@@ -171,6 +172,10 @@ class App extends React.Component {
 
     hideConfirm(){
       this.setState({confirmMission:false});
+    }
+
+    startMission(){
+      FlowRouter.go('/missionCompleter')
     }
 
     render() {
@@ -321,12 +326,12 @@ class App extends React.Component {
                   <div className= "row" id="stepBodyInfo">
                     {missionSteps}
                   </div>
-                  <div className="row" id="startMission">
+                  <div onClick={()=>{this.startMission()}} className="row" id="startMission">
                     Start Mission
                   </div>
                 </div>)
       } else if (this.props.path == "missionCompleter"){
-        return (<div className = "container-fluid"> <MissionCompleter missionDetails={this.state.currentMissionDetails} missionSteps={this.state.currentMissionSteps}/></div>)
+        return (<div className = "container-fluid"> <MissionCompleter missionDetails={this.state.currentMissionDetails}/></div>)
       } else {
         return (<div>404</div>)
       }

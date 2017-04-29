@@ -19,3 +19,9 @@ FlowRouter.route('/missionDetails', {
     ReactDOM.render(<App path="missionDetails" queryParams={queryParams}/>, document.getElementById('app'));
   }
 });
+
+FlowRouter.route('/missionCompleter', {
+  action(params, queryParams) {
+    ReactDOM.render(<App path="missionCompleter" />, document.getElementById('app'));
+  }
+});
