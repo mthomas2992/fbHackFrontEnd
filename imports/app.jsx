@@ -155,7 +155,7 @@ class App extends React.Component {
       console.log(this.state);
       if (this.state.newMissionSteps){
         for (k=0;k<this.state.newMissionSteps.length;k++){
-          this.state.cost = totalCost + this.state.newMissionSteps[k].cost;
+          this.state.cost += this.state.newMissionSteps[k].cost;
         }
       } else {
         return;
@@ -426,7 +426,7 @@ class App extends React.Component {
           render() {return null }})}];
 
           console.log(this.props);
-        return (<div className="container-fluid">
+        return (<div className="container-fluid page-section">
                     <div className = "row" id ="mainMap">
                       <GoogleMapReact
                         center={[this.props.coords.latitude, this.props.coords.longitude]}
@@ -450,12 +450,25 @@ class App extends React.Component {
         var currentSteps = new Array();
         if (this.state.newMissionSteps){
           for (j=0;j<this.state.newMissionSteps.length;j++){
-            currentSteps.push(<div className = "col-xs-12" id = "step">Name {this.state.newMissionSteps[j].name} Desc{this.state.newMissionSteps[j].desc}</div>)
+            currentSteps.push(
+            <div id="step-actual-info">
+              <div className="col-xs-4">
+               <img id="step-icon-mini" src={icon_links[this.state.newMissionSteps[j].type]}></img>
+              </div>
+              <div className="col-xs-8">
+               <div id="step-actual-name">
+               Task - {this.state.newMissionSteps[j].name}</div>
+               <div id="step-actual-desc">
+                 {this.state.newMissionSteps[j].desc}
+               </div>
+             </div>
+           </div>);
+
           }
         }
         currentSteps.push(<div onClick = {this.makePopup} className = "col-xs-12" id="stepPlaceHolder">+ Create New Step</div>)
         return (
-          <div className = "container-fluid">
+          <div className = "container-fluid page-section">
             <div className="row" id = "topHeader">
               <div className = "col-xs-8" id = "nameEditing">
                 <Validation.components.Form onSubmit={this.handleSubmit}>
@@ -540,7 +553,7 @@ class App extends React.Component {
         }
 
         return (<div>
-                <div className = "container-fluid">
+                <div className = "container-fluid page-section">
                   <div className="row" id = "topHeader">
                     <div className = "col-xs-8" id = "nameEditing">
                       <div id="mission-otw-name">
