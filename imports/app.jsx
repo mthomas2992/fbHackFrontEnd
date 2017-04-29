@@ -9,12 +9,20 @@ import GoogleMapReact from 'google-map-react';
 import Location from '/imports/location.jsx';
 import Carousel from 'nuka-carousel';
 
-class App extends React.Component {
 
+// Types of Work
+const PHOTO = 0;
+const TRAVEL = 1;
+const WORK = 2;
+const SHORTQ = 3;
+const LONGQ = 4;
+
+class App extends React.Component {
     constructor(props){
       super(props);
       this.state = {
         missions: null,
+        steps: null,
       }
 
     };
@@ -24,6 +32,9 @@ class App extends React.Component {
       Meteor.call('getMissions',function (err,res){
         self.setState({missions:res});
       })
+      Meteor.call('getSteps',function (err,res){
+        self.setState({steps:res});
+      })
     }
 
 
@@ -32,10 +43,39 @@ class App extends React.Component {
       console.log(test);
       var currLocations = new Array();
       var carouselElements = new Array();
-      if (this.state.missions){
+      if (this.state.missions && this.state.steps){
         console.log(this.state.missions);
+
         for (i=0;i<this.state.missions.length;i++){
-          currLocations.push(<Location lat= {this.state.missions[i].lat} lng = {this.state.missions[i].long}/>);
+
+          // Count up task types
+          var jobTypes=[0,0,0,0,0];
+          for (j=0; j<this.state.steps[j].length; j++) {
+            if (parseInt(this.state.steps[i].mission) == j) {
+              switch(this.state.steps[i].type) {
+                case "photo":
+                  jobTypes[PHOTO] += 1; break;
+                case "travel":
+                  jobTypes[TRAVEL] += 1; break;
+                case "shortQ":
+                  jobTypes[SHORTQ] += 1;  break;
+                case "longQ":
+                  jobTypes[LONGQ] += 1; break;
+                case "work":
+                  jobTypes[WORK] += 1; break;
+                default: break;
+              }
+            }
+          }
+
+          var missionType = 0;
+          for (j=0; j<5; j++) {
+            if (jobTypes[j] > jobTypes[missionType]) {
+                missionType = j;
+            }
+          }
+
+          currLocations.push(<Location type={missionType} lat= {this.state.missions[i].lat} lng = {this.state.missions[i].long}/>);
           carouselElements.push(<div>{this.state.missions[i].name}</div>)
         }
       }
@@ -52,6 +92,7 @@ class App extends React.Component {
                   <div className = "row">
                     <Carousel>
                       {carouselElements}
+
                     </Carousel>
                   </div>
               </div>)
