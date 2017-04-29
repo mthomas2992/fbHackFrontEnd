@@ -85,6 +85,8 @@ class App extends React.Component {
       this.handleSelect = this.handleSelect.bind(this);
       this.handleChangeMaps = this.handleChangeMaps.bind(this);
       this.startMission = this.startMission.bind(this);
+
+      this.goToProfile = this.goToProfile.bind(this);
     };
 
     componentWillMount(){
@@ -158,6 +160,10 @@ class App extends React.Component {
 
       this.setState({newMission:newMissionToBePosted});
       this.setState({confirmMission:true});
+    }
+
+    goToProfile(){
+      FlowRouter.go('/profile');
     }
 
     submitLoginForm(event) {
@@ -394,6 +400,9 @@ class App extends React.Component {
                         afterSlide={this.afterSlide}>
                         {carouselElements}
                       </Carousel>
+                    </div>
+                    <div onClick={()=>{this.goToProfile()}} id="myProfile">
+                      <img id="myProfileImgSrc" src="https://www.book2trip.com/template/website/img/profile.png"></img>
                     </div>
                 </div>);
       } else if (this.props.path == "missionCreator"){
