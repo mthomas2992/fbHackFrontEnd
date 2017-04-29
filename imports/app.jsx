@@ -17,8 +17,15 @@ import PlacesAutocomplete from 'react-places-autocomplete';
 import {geocodeByAddress} from 'react-places-autocomplete';
 
 
-class App extends React.Component {
 
+// Types of Work
+const PHOTO = 0;
+const TRAVEL = 1;
+const WORK = 2;
+const SHORTQ = 3;
+const LONGQ = 4;
+
+class App extends React.Component {
     constructor(props){
       super(props);
       this.state = {
@@ -30,6 +37,7 @@ class App extends React.Component {
         desc:"",
         confirmMission:false,
         address:"",
+        steps: null,
       }
 
       this.handleSubmit = this.handleSubmit.bind(this);
@@ -53,6 +61,9 @@ class App extends React.Component {
       var self = this;
       Meteor.call('getMissions',function (err,res){
         self.setState({missions:res});
+      })
+      Meteor.call('getSteps',function (err,res){
+        self.setState({steps:res});
       })
     }
 
@@ -164,7 +175,6 @@ class App extends React.Component {
           <small className="text-muted">{formattedSuggestion.secondaryText}</small>
         </div>);
 
-      console.log(this.state);
       if (this.props.path == "home"){
         var test = Geolocation.latLng();
         console.log(test);
@@ -173,6 +183,33 @@ class App extends React.Component {
         if (this.state.missions){
           console.log(this.state.missions);
           for (i=0;i<this.state.missions.length;i++){
+
+            // Count up task types
+            var jobTypes=[0,0,0,0,0];
+            for (j=0; j<this.state.steps[j].length; j++) {
+              if (parseInt(this.state.steps[i].mission) == j) {
+                switch(this.state.steps[i].type) {
+                  case "photo":
+                    jobTypes[PHOTO] += 1; break;
+                  case "travel":
+                    jobTypes[TRAVEL] += 1; break;
+                  case "shortQ":
+                    jobTypes[SHORTQ] += 1;  break;
+                  case "longQ":
+                    jobTypes[LONGQ] += 1; break;
+                  case "work":
+                    jobTypes[WORK] += 1; break;
+                  default: break;
+                }
+              }
+            }
+
+            var missionType = 0;
+            for (j=0; j<5; j++) {
+              if (jobTypes[j] > jobTypes[missionType]) {
+                  missionType = j;
+              }
+            }
             currLocations.push(<Location lat= {this.state.missions[i].lat} lng = {this.state.missions[i].long}/>);
             carouselElements.push(<div>{this.state.missions[i].name}</div>)
           }
@@ -237,7 +274,6 @@ class App extends React.Component {
       } else {
         return (<div>404</div>)
       }
-
 
     }
 }
