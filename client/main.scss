@@ -1,11 +1,9 @@
 /* CSS declarations go here */
 
-
 #mainMap {
   height: 75vh;
   width: 100vw;
 }
-
 
 #mission-otw-name {
   font-size: 30px;
@@ -121,6 +119,13 @@
   width: 100%;
 }
 
+#stepBodyInfo {
+  height: 55vh;
+  width: 100vw;
+  border-style: dashed;
+  border-color: black;
+}
+
 #stepSection {
   height: 55vh;
   width: 100vw;
@@ -168,6 +173,13 @@
   width: 60%;
 }
 
+#submitMission {
+  height: 15vh;
+  width: 100vw;
+  border-style: dashed;
+  border-color: black;
+}
+
 #stepPlaceHolder {
   border-style: dashed;
   border-color: grey;
@@ -213,7 +225,6 @@
   height: 100vh;
   background-color: red;
 }
-
 
 /*Main Page*/
 #loc-icon {
@@ -279,4 +290,20 @@
   width: 100vw;
   border-style: dashed;
   border-color: black;
+}
+
+#landing-page {
+    height: 100vh;
+    background-color: #3b5998;
+    padding-right: 20%;
+    padding-left: 20%;
+    text-align: center;
+}
+
+#register-page {
+    height: 100vh;
+    background-color: #3b5998;
+    padding-right: 20%;
+    padding-left: 20%;
+    text-align: center;
 }
