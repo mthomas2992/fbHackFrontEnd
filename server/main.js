@@ -39,7 +39,6 @@ Meteor.startup(() => {
     'getMission' : function(id) {
       var queryString = "https://fbht17.herokuapp.com/missions/"+id;
       var result = HTTP.get(queryString);
-      console.log(result);
       return result.data;
     },
 
