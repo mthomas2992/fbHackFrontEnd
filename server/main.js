@@ -74,10 +74,75 @@ Meteor.startup(() => {
       return result.data;
     },
 
+    'getResults' :function() {
+        var queryString = "https://fbht17.herokuapp.com/results/";
+        var result = HTTP.get(queryString);
+        return result.data;
+    },
+
+    'createResult' :function(profile_id, step_id, content) {
+        var queryString = "https://fbht17.herokuapp.com/results/";
+        var result = HTTP.post(queryString,{
+          params: {
+             "profile": profile_id,
+             "step": step_id,
+             "content": content
+           }});
+        return(result);
+    },
+
+    'resultIsSuccess' :function(result) {
+        if (result.statusCode >= 200 && result.statusCode < 300)
+            return true;
+        return false;
+    },
+
+    'getProfiles' :function() {
+        var queryString = "https://fbht17.herokuapp.com/profiles/";
+        var result = HTTP.get(queryString);
+        return result.data;
+    },
+
+    'createProfile' :function(email, password, first_name, last_name) {
+        var queryString = "https://fbht17.herokuapp.com/profiles/";
+        var result = HTTP.post(queryString, {
+            params: {
+                "email": email,
+                "password": password,
+                "first_name": first_name,
+                "last_name": last_name,
+                "current_mission": null,
+                "amount": 0.0
+            }});
+        return result;
+    },
+
+    'isValidLogin' :function(email, password) {
+        var queryString = "https://fbht17.herokuapp.com/login/";
+        var result = HTTP.post(queryString, {
+            params: {
+                "email": email,
+                "password": password
+            }});
+        if (result.statusCode == 200)
+            return true;
+        return false;
+    },
+
+    'getImageUrl' :function(base64EncodedImage) {
+        var queryString = "https://fbht17.herokuapp.com/upload/";
+        var result = HTTP.post(queryString, {
+            params: {
+                "image": base64EncodedImage
+            }});
+        return result.data.image;
+    },
+      
     'getStep':function(id){
       var queryString= "https://fbht17.herokuapp.com/steps/"+id;
       var result = HTTP.get(queryString);
       return result;
     }
+
   });
 });
