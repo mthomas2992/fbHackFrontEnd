@@ -355,7 +355,7 @@ class App extends React.Component {
                   </div>
                 </div>)
       } else if (this.props.path == "missionCompleter"){
-        return (<div className = "container-fluid"> <MissionCompleter missionDetails={this.state.currentMissionDetails}/></div>)
+        return (<div className = "container-fluid"> <MissionCompleter userID = {this.state.currUserID} missionDetails={this.state.currentMissionDetails}/></div>)
       } else {
         return (<div>404</div>)
       }

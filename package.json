@@ -15,6 +15,7 @@
     "react-places-autocomplete": "^4.1.1",
     "react-scroll": "^1.5.2",
     "react-validation": "^2.10.9",
+    "react-webcam": "0.0.14",
     "validator": "^7.0.0"
   }
 }
