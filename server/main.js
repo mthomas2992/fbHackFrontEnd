@@ -137,7 +137,7 @@ Meteor.startup(() => {
             }});
         return result.data.image;
     },
-      
+
     'getStep':function(id){
       var queryString= "https://fbht17.herokuapp.com/steps/"+id;
       var result = HTTP.get(queryString);

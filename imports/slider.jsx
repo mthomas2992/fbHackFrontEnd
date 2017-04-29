@@ -16,7 +16,13 @@ class Slider extends React.Component {
         desc: props.desc,
         cost: props.cost
       }
+
+      this.moreInfo=this.moreInfo.bind(this);
     };
+
+    moreInfo(){
+      FlowRouter.go('/missionDetails?id='+this.props.id);
+    }
 
     render() {
       var miniIcons = new Array();
@@ -26,7 +32,7 @@ class Slider extends React.Component {
         }
       }
       return (
-        <div id='slider'>
+        <div onClick={()=>{this.moreInfo()}} id='slider'>
           <div id='mission-title'>{this.state.name}</div>
           {miniIcons}
           <div id='mission-desc'>{this.state.desc}</div>

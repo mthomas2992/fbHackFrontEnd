@@ -4,6 +4,24 @@ import App from '/imports/app.jsx';
 
 FlowRouter.route('/', {
   action(params, queryParams) {
+    ReactDOM.render(<App path="landing"/>, document.getElementById('app'));
+  }
+});
+
+FlowRouter.route('/login', {
+  action(params, queryParams) {
+    ReactDOM.render(<App path="login"/>, document.getElementById('app'));
+  }
+});
+
+FlowRouter.route('/register', {
+  action(params, queryParams) {
+    ReactDOM.render(<App path="register"/>, document.getElementById('app'));
+  }
+});
+
+FlowRouter.route('/home', {
+  action(params, queryParams) {
     ReactDOM.render(<App path="home"/>, document.getElementById('app'));
   }
 });
