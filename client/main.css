@@ -86,17 +86,19 @@
   background-color: red;
 }
 
+/*Main Page*/
 #loc-icon {
   height:40px;
   width: 40px;
 }
 
 #loc-icon-mini {
-  height:20px;
-  width: 20px;
+  height:30px;
+  width: 30px;
+  margin: 0 auto;
+  display: block;
 }
 
-/*Main Page*/
 #mission-title {
   font-style: bold;
   font-size: 25px;

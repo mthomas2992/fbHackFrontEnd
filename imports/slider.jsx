@@ -28,10 +28,10 @@ class Slider extends React.Component {
       return (
         <div id='slider'>
           <div id='mission-title'>{this.state.name}</div>
+          {miniIcons}
           <div id='mission-desc'>{this.state.desc}</div>
           <div id='mission-details'>{this.state.address}</div>
           <div id='mission-details'>${this.state.cost}</div>
-          {miniIcons}
         </div>)
     }
 }
