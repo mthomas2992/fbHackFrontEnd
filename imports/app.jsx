@@ -10,17 +10,27 @@ import Location from '/imports/location.jsx';
 import Slider from '/imports/slider.jsx';
 import Carousel from 'nuka-carousel';
 import Validation from 'react-validation';
-
 import AddStep from '/imports/addStep.jsx';
 import ConfirmMission from '/imports/confirmMission.jsx';
-
 import PlacesAutocomplete from 'react-places-autocomplete';
 import {geocodeByAddress} from 'react-places-autocomplete';
-
 import MissionCompleter from '/imports/missionCompleter.jsx';
 
 
+const PHOTO_ICON = "http://icons.iconarchive.com/icons/pelfusion/long-shadow-media/512/Camera-icon.png";
+const TRAVEL_ICON = "https://cdn2.iconfinder.com/data/icons/flatte-maps-and-navigation/80/04_-_Walking-512.png";
+const WORK_ICON = "https://cdn1.iconfinder.com/data/icons/mix-color-3/502/Untitled-35-512.png";
+const SHORTQ_ICON = "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-question-icon.png";
+const LONGQ_ICON = "http://www.intensivewatch.com/pc/img/icons/ic-register.png";
+var icon_links = {
+  "camera":PHOTO_ICON,
+  "direction":TRAVEL_ICON,
+  "work":WORK_ICON,
+  "shortQ":SHORTQ_ICON,
+  "longQ":LONGQ_ICON
+};
 
+const ORANGE_CIRCLE = "https://www.att.com/Investor/ATT_Annual/2012/_images/innovation/orange_circle.png"
 // Types of Work
 const PHOTO = 0;
 const TRAVEL = 1;
@@ -38,6 +48,7 @@ class App extends React.Component {
         popup:false,
         name:"",
         desc:"",
+        cost:0.00,
         confirmMission:false,
         address:"",
         steps: null,
@@ -120,10 +131,9 @@ class App extends React.Component {
     handleSubmit(event){
       event.preventDefault();
       console.log(this.state);
-      var totalCost = 0;
       if (this.state.newMissionSteps){
         for (k=0;k<this.state.newMissionSteps.length;k++){
-          totalCost = totalCost + this.state.newMissionSteps[k].cost;
+          this.state.cost = totalCost + this.state.newMissionSteps[k].cost;
         }
       } else {
         return;
@@ -135,7 +145,7 @@ class App extends React.Component {
         "long": this.state.newMissionGeocodeResults.lng,
         "author": this.state.currUserID,
         "desc": this.state.desc,
-        "cost": totalCost,
+        "cost": this.state.cost,
         "num_users": "undefined",
       }
 
@@ -361,7 +371,6 @@ class App extends React.Component {
         component: React.createClass({
           render() {return null }})}];
 
-
         return (<div className="container-fluid">
                     <div className = "row" id ="mainMap">
                       <GoogleMapReact
@@ -415,8 +424,9 @@ class App extends React.Component {
                     inputName="fromAddress"
                   />
               </div>
-              <div className = "col-xs-4" id = "cost-text">
-                COST
+              <div className = "col-xs-4" id = "cost-area">
+                <img id='org-circle' src={ORANGE_CIRCLE}></img>
+                <div id='cost-text'>${this.state.cost}</div>
               </div>
             </div>
             <div className = "row" id = "stepSection">
@@ -451,25 +461,49 @@ class App extends React.Component {
           var self=this
           for (j=0;j<currentMissionDetails.steps.length;j++){
             Meteor.call('getStep',currentMissionDetails.steps[j],function(err,res){
-              console.log(res);
-              missionSteps.push(<div className = "col-xs-12" id = "step">Name {res.data.name} Desc{res.data.desc}</div>);
+              missionSteps.push(
+                <div id="step-actual-info">
+                <div className="col-xs-4">
+                  <img id="step-icon-mini" src={icon_links[res.data.type]}></img>
+                </div>
+                <div className="col-xs-8">
+                  <div id="step-actual-name">
+                  Task - {res.data.name}</div>
+                  <div id="step-actual-desc">
+                    {res.data.desc}
+                  </div>
+                </div>
+              </div>);
               self.setState({currentMissionSteps:missionSteps});
             })
           }
         }
 
 
-        return (<div className = "container-fluid">
-                  <div className="row" id = "missionDetailsTopper">
-                    Title : {currentMissionDetails.name}
+        return (<div>
+                <div className = "container-fluid">
+                  <div className="row" id = "topHeader">
+                    <div className = "col-xs-8" id = "nameEditing">
+                      <div id="mission-otw-name">
+                      {currentMissionDetails.name} </div>
+                      <div id="mission-otw-desc">
+                        {currentMissionDetails.desc} </div>
+                      <div id="mission-otw-desc">
+                        {currentMissionDetails.address} </div>
+                    </div>
+                    <div className = "col-xs-4" id = "cost-area">
+                      <img id='org-circle' src={ORANGE_CIRCLE}></img>
+                      <div id='cost-text'>${currentMissionDetails.cost}</div>
+                    </div>
                   </div>
-                  <div className= "row" id="stepBodyInfo">
+                  <div className= "row" id="stepSection">
                     {missionSteps}
                   </div>
-                  <div onClick={()=>{this.startMission()}} className="row" id="startMission">
-                    Start Mission
-                  </div>
-                </div>)
+                </div>
+                  <div id="submitMission">
+                    <div onClick={()=>{this.startMission()}}
+                     id="create-mission-btn">Start Mission</div>
+                </div></div>)
       } else if (this.props.path == "missionCompleter"){
         return (<div className = "container-fluid"> <MissionCompleter userID = {this.state.currUserID} missionDetails={this.state.currentMissionDetails}/></div>)
       } else {
