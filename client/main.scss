@@ -1,9 +1,117 @@
 /* CSS declarations go here */
 
+
 #mainMap {
   height: 75vh;
   width: 100vw;
 }
+
+
+#camera {
+  top: 10vh;
+}
+
+#stepComplete {
+  height: 100vh;
+  width: 100vw;
+  background-color: #80ada0;
+  border-style: dashed;
+  border-color: black;
+}
+
+#step-do-title {
+  font-size: 50px;
+  text-align: center;
+  top: 30vh;
+  margin: auto;
+  display: block;
+  color: white;
+}
+
+#step-do-subtitle {
+  font-size: 40px;
+  font-weight: bold;
+  top: 40vh;
+  text-align:center;
+  padding: auto;
+  margin: auto;
+  display: block;
+  color: white;
+}
+
+#step-activity-title {
+  font-size: 50px;
+  font-weight: bold;
+  top: 20vh;
+  text-align:center;
+  padding: auto;
+  margin: auto;
+  display: block;
+  color: white;
+}
+
+#step-activity-subtitle {
+  font-size: 35px;
+  font-weight: bold;
+  top: 20vh;
+  text-align:center;
+  padding: auto;
+  margin: auto;
+  display: block;
+  color: white;
+}
+
+#step-do-mission-btn {
+  position: fixed;
+  font-size: 30px;
+  width: 70%;
+  top: 75vh;
+  padding: 5%;
+  margin-top: 100px;
+  background-color: #FCB314;
+  margin: 0 auto;
+  display: block;
+  color: white;
+}
+
+#mission-otw-name {
+  font-size: 30px;
+  font-weight: bold;
+  color:white;
+  padding-top: 10%;
+  padding-left: 10%;
+}
+#mission-otw-desc {
+  color:white;
+  font-size: 20px;
+  padding-top: 10%;
+  padding-left: 10%;
+}
+
+#step-icon-mini {
+  padding-top:5%;
+  height:60px;
+  width: 60px;
+  display: block;
+}
+#step-actual-info {
+  border-color: grey;
+  background-color: #eaedf2;
+  padding-top: 4%;
+  height: 14vh;
+  width: 90vw;
+  margin: 15px;
+}
+
+#step-actual-name {
+  font-size: 20px;
+  font-weight: bold;
+}
+#step-actual-desc {
+  font-size: 16px;
+  font-style: italic;
+}
+/*Mission Creator*/
 
 #topHeader{
   height: 30vh;
@@ -19,11 +127,32 @@
   border-color: black;
 }
 
+
 #stepBodyInfo {
   height: 55vh;
   width: 100vw;
   border-style: dashed;
   border-color: black;
+}
+
+#submitMission {
+  height: 15vh;
+  width: 100vw;
+  background-color: #80ada0;
+}
+
+#create-mission-btn {
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  background-color: #80ada0;
+  padding: 7.5%;
+  display: block;
+  margin: 0 auto;
+  border:0;
+  color: white;
+  height: 100%;
+  width: 100%;
 }
 
 #stepSection {
@@ -86,6 +215,7 @@
   background-color: red;
 }
 
+
 /*Main Page*/
 #loc-icon {
   height:40px;
@@ -143,8 +273,6 @@
   border-style: dashed;
   height: 15vh;
   width: 100vw;
-  border-style: dashed;
-  border-color: black;
 }
 
 #landing-page {
@@ -223,4 +351,20 @@
             margin-left: 8em;
         }
     }
+}
+
+#topMissionAnalyticsHeader {
+  height: 30vh;
+  width: 100vw;
+  border-color: black;
+  border-style: dashed;
+}
+
+#rootStepAnalytics {
+  text-align: center;
+}
+
+#imgDisp {
+  max-width: 90vw;
+  width: 90vw;
 }

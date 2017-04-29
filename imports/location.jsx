@@ -9,11 +9,12 @@ const TRAVEL_ICON = "https://cdn2.iconfinder.com/data/icons/flatte-maps-and-navi
 const WORK_ICON = "https://cdn1.iconfinder.com/data/icons/mix-color-3/502/Untitled-35-512.png";
 const SHORTQ_ICON = "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-question-icon.png";
 const LONGQ_ICON = "http://www.intensivewatch.com/pc/img/icons/ic-register.png";
+const OUR_LOC = "https://raw.githubusercontent.com/phatblat/BlueDot/0.1.1/bluedot.gif";
 
 class Location extends React.Component {
 
     constructor(props){
-      var icon_links = [PHOTO_ICON, TRAVEL_ICON, WORK_ICON, SHORTQ_ICON, LONGQ_ICON];
+      var icon_links = [PHOTO_ICON, TRAVEL_ICON, WORK_ICON, SHORTQ_ICON, LONGQ_ICON, OUR_LOC];
       super(props);
       this.state = {
         imageLink : icon_links[props.type],

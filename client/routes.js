@@ -47,5 +47,10 @@ FlowRouter.route('/missionCompleter', {
 FlowRouter.route('/profile', {
   action(params, queryParams) {
     ReactDOM.render(<App path="profile"/>, document.getElementById('app'));
+});
+    
+FlowRouter.route('/missionAnalytics', {
+  action(params, queryParams) {
+    ReactDOM.render(<App path="missionAnalytics" queryParams={queryParams} />, document.getElementById('app'));
   }
 });
