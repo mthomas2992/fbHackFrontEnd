@@ -4,6 +4,12 @@ import App from '/imports/app.jsx';
 
 FlowRouter.route('/', {
   action(params, queryParams) {
-    ReactDOM.render(<App/>, document.getElementById('app'));
+    ReactDOM.render(<App path="home"/>, document.getElementById('app'));
+  }
+});
+
+FlowRouter.route('/missionCreator', {
+  action(params, queryParams) {
+    ReactDOM.render(<App path="missionCreator"/>, document.getElementById('app'));
   }
 });

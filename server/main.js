@@ -17,5 +17,36 @@ Meteor.startup(() => {
       return result.data;
     },
 
+    'createNewMission' :function(name,lat,lng,author,desc,cost,numUsers){
+      var queryString="https://fbht17.herokuapp.com/missions/";
+      var result = HTTP.post(queryString,{
+        params: {
+           "name":name,
+           "lat":lat,
+           "long": lng,
+           "author": author,
+           "cost":cost,
+           "desc":desc,
+           "num_users":numUsers,
+         }});
+      return(result);
+    },
+
+    'createSteps' : function(steps,missionID){
+      console.log(missionID);
+      for (i=0;i<steps.length;i++){
+        var queryString = "https://fbht17.herokuapp.com/steps/";
+        var result = HTTP.post(queryString,{params:{
+          "type":steps[i].type,
+          "desc":steps[i].desc,
+          "cost":steps[i].cost,
+          "name":steps[i].name,
+          "mission":missionID
+        }});
+        console.log(result);
+      }
+
+    }
+
   });
 });

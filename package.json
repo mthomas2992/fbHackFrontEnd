@@ -10,6 +10,9 @@
     "meteor-node-stubs": "~0.2.4",
     "nuka-carousel": "^2.0.4",
     "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react-dom": "^15.5.4",
+    "react-places-autocomplete": "^4.1.1",
+    "react-validation": "^2.10.9",
+    "validator": "^7.0.0"
   }
 }
