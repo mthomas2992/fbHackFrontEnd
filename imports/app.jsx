@@ -19,10 +19,10 @@ import {geocodeByAddress} from 'react-places-autocomplete';
 
 import MissionCompleter from '/imports/missionCompleter.jsx';
 
+
 import MissionAnalytics from '/imports/missionAnalytics.jsx';
 
 import {geolocated} from 'react-geolocated';
-
 
 const PHOTO_ICON = "http://icons.iconarchive.com/icons/pelfusion/long-shadow-media/512/Camera-icon.png";
 const TRAVEL_ICON = "https://cdn2.iconfinder.com/data/icons/flatte-maps-and-navigation/80/04_-_Walking-512.png";
@@ -515,8 +515,6 @@ class App extends React.Component {
                 </div></div>)
       } else if (this.props.path == "missionCompleter"){
         return (<div className = "container-fluid"> <MissionCompleter userID = {this.state.currUserID} missionDetails={this.state.currentMissionDetails}/></div>)
-      }  else if (this.props.path == "missionAnalytics"){
-        return (<div className = "container-fluid"> <MissionAnalytics missionActive = {this.props.queryParams.id}/></div>)
       } else {
         return (<div>404</div>)
       }

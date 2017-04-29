@@ -6,6 +6,25 @@ import ReactDOM from 'react-dom';
 import Scroll from 'react-scroll';
 import Validation from 'react-validation';
 
+const PHOTO_ICON = "http://icons.iconarchive.com/icons/pelfusion/long-shadow-media/512/Camera-icon.png";
+const TRAVEL_ICON = "https://cdn2.iconfinder.com/data/icons/flatte-maps-and-navigation/80/04_-_Walking-512.png";
+const WORK_ICON = "https://cdn1.iconfinder.com/data/icons/mix-color-3/502/Untitled-35-512.png";
+const SHORTQ_ICON = "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-question-icon.png";
+const LONGQ_ICON = "http://www.intensivewatch.com/pc/img/icons/ic-register.png";
+var icon_links = {
+  "camera":PHOTO_ICON,
+  "direction":TRAVEL_ICON,
+  "work":WORK_ICON,
+  "shortQ":SHORTQ_ICON,
+  "longQ":LONGQ_ICON
+};
+var icon_text = {
+  "camera": "Take a Photo",
+  "direction" : "Visit a Location",
+  "work": "Complete a Task",
+  "shortQ": "Answer Short Questions",
+  "longQ":"Complete Survey"
+}
 
 var Link = Scroll.Link;
 var Element    = Scroll.Element;
@@ -116,13 +135,39 @@ class MissionCompleter extends React.Component {
 
     render() {
       if (this.state.loadingSteps == false){
+        var curStep = this.state.steps[this.state.currStep];
+        var icon = '';
+        if (parseInt(curStep.mission) == i) {
+          switch(curStep.type) {
+            case "camera":
+              icon=icon_links[0]; break;
+            case "photo":
+              icon=icon_links[0]; break;
+            case "direction":
+              icon=icon_links[1]; break;
+            case "shortQ":
+              icon=icon_links[3]; break;
+            case "sht_ans":
+              icon=icon_links[3]; break;
+            case "longQ":
+              icon=icon_links[4]; break;
+            case "work":
+              icon=icon_links[2]; break;
+            default: break;
+          }
+        }
         var steps = new Array();
         steps.push(<Element name="0">
                       <div id = "stepComplete" className ="row">
-                        <div className = "col-xs-12">
-                            Mission brief will go here
+                        <img src={icon}></img>
+                        <div className = "col-xs-12" id="step-do-title">
+                            {this.props.missionDetails.name}
                         </div>
-                        <div onClick={()=>{this.nextStep(1,"","","skip")}}> Start mission</div>
+                        <div className = "col-xs-12" id="step-do-subtitle">
+                            Task: {curStep.name}
+                        </div>
+                        <div id="step-do-mission-btn"
+                          onClick={()=>{this.nextStep(1,"","","skip")}}> Start Mission</div>
                       </div>
                     </Element>);
         for (s=0;s<this.state.steps.length;s++){
@@ -134,15 +179,17 @@ class MissionCompleter extends React.Component {
             if (interpretStatus=="Next Step"){
               interpretStatus = "Take photo"
             }
-            body= <div className = "col-xs-12">
-                      <div className = "row">
+            body= <div className = "col-xs-12" id="step-do-subtitle">
+                      <div className = "row" id="camera">
                         <Webcam
                           screenshotFormat = 'image/jpeg'
-                          width='212'
-                          height='160'
+                          width='300'
+                          height='300'
                           ref={camRef}/>
                       </div>
-                      <div className = "row" onClick={()=>{this.nextStep(s+2,currId,this.state[camRef],"camera",camRef)}}> {interpretStatus}</div>
+                      <div className = "row"
+                        onClick={()=>{this.nextStep(s+2,currId,this.state[camRef],
+                        "camera",camRef)}}> {interpretStatus}</div>
                   </div>
           } else {
             body= <div className = "col-xs-12">
@@ -160,10 +207,10 @@ class MissionCompleter extends React.Component {
           }
           steps.push(<Element name={""+(s+1)+""}>
                         <div id="stepComplete" className = "row">
-                          <div className = "col-xs-12">
+                          <div className = "col-xs-12" id="step-activity-subtitle">
                             {this.state.steps[s].name}
                           </div>
-                          <div className = "col-xs-12">
+                          <div className = "col-xs-12" id="step-activity-subtitle">
                             {this.state.steps[s].desc}
                           </div>
                           {body}
