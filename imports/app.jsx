@@ -171,31 +171,46 @@ class App extends React.Component {
       this.setState({confirmMission:false});
     }
 
-    render() {
+    maxHeight (className) {
+      var cols = document.getElementsByClassName(className);
+      for(i=0; i<cols.length; i++) {
+        cols[i].style.height = '100%';
+      }
+    }
 
+    componentDidUpdate() {
+      this.maxHeight('slider');
+      this.maxHeight('slider-frame')
+      this.maxHeight('slider-slide')
+      this.maxHeight('slider-list')
+    }
+
+    render() {
       const AutocompleteItem = ({ formattedSuggestion }) => (
         <div className="Demo__suggestion-item">
           <i className='fa fa-map-marker Demo__suggestion-icon'/>
           <strong>{formattedSuggestion.mainText}</strong>{' '}
           <small className="text-muted">{formattedSuggestion.secondaryText}</small>
         </div>);
+
       if (this.state.missions==null){
         return (<div>loading....</div>)
       } else if (this.props.path == "home"){
         var currLocations = new Array();
         var carouselElements = new Array();
+        var jobTypes=[0,0,0,0,0];
         if (this.state.missions){
-          console.log(this.state.missions);
           for (i=0;i<this.state.missions.length;i++){
 
             // Count up task types
-            var jobTypes=[0,0,0,0,0];
-            for (j=0; j<this.state.steps[j].length; j++) {
-              if (parseInt(this.state.steps[i].mission) == j) {
+            jobTypes=[0,0,0,0,0];
+            for (j=0; j<this.state.steps.length; j++) {
+              if (parseInt(this.state.steps[j].mission) == i) {
+                console.log("Switching")
                 switch(this.state.steps[i].type) {
-                  case "photo":
+                  case "camera":
                     jobTypes[PHOTO] += 1; break;
-                  case "travel":
+                  case "direction":
                     jobTypes[TRAVEL] += 1; break;
                   case "shortQ":
                     jobTypes[SHORTQ] += 1;  break;
@@ -226,9 +241,9 @@ class App extends React.Component {
 
         var Decorators = [{     //Removed buttons
         component: React.createClass({
-          render() {return null }})
+          render() {return null }})}];
 
-          }];
+
         return (<div className="container-fluid">
                     <div className = "row" id ="mainMap">
                       <GoogleMapReact
@@ -239,7 +254,8 @@ class App extends React.Component {
                       </GoogleMapReact>
                     </div>
                     <div className = "row" id = "carousel">
-                      <Carousel decorators={Decorators}>
+                      <Carousel decorators={Decorators}
+                        afterSlide={this.afterSlide}>
                         {carouselElements}
                       </Carousel>
                     </div>
