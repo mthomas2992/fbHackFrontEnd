@@ -9,8 +9,40 @@
 #topHeader{
   height: 30vh;
   width: 100vw;
+  background-color: #80ada0;
+}
+
+#mission-form-input {
+  font-size:16px;
+  display:block;
+  padding:3%;
+  margin: 0 auto;
+  border: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/*Name section*/
+#nameEditing {
+  padding-top: 5%;
+  padding-left: 5%;
+}
+
+#cost-text {
+  font-size:20px;
+  font-weight:bold;
+  display: block;
+  margin: 0 auto;
+  padding-top: 5%;
+  padding-left: 8.5%;
+  color: white;
+}
+
+#cost-area {
   border-style: dashed;
   border-color: black;
+  background-color: #80ada0;
+  height: 25vh;
 }
 
 #missionDetailsTopper {
@@ -37,25 +69,16 @@
   width: 100%;
 }
 
-/*STEP CREATION*/
-#stepBodyInfo {
-  height: 55vh;
-  width: 100vw;
-  border-style: dashed;
-  border-color: black;
-}
-
 #stepSection {
   height: 55vh;
   width: 100vw;
-  border-style: dashed;
-  border-color: black;
 }
 
 /*Types of Steps*/
 #step-info {
-  font-size: 14px;
+  font-size: 18px;
   font-weight: bold;
+  padding: 7%;
   display: inline;
 }
 
@@ -69,7 +92,7 @@
   display: inline;
 }
 
-#step-longform-input {
+#step-form-input {
   font-size:16px;
   display:block;
   padding:5%;
@@ -77,16 +100,6 @@
   border: 0;
   width: 90%;
   height: 100%;
-}
-
-#step-shortform-input {
-  font-size:16px;
-  display:block;
-  padding:5%;
-  margin: 0 auto;
-  border: 0;
-  width: 90%;
-  height: 30%;
 }
 
 #create-step-btn {
@@ -103,19 +116,14 @@
   width: 60%;
 }
 
-#nameEditing {
-  border-style: dashed;
-  border-color: black;
-}
-
-#cost {
-  border-style: dashed;
-  border-color: black;
-}
-
 #stepPlaceHolder {
   border-style: dashed;
   border-color: grey;
+  background-color: #eaedf2;
+  font-size: 20px;
+  font-weight: bold;
+  color: #33202A;
+  padding: 4.5%;
   height: 10vh;
   width: 90vw;
   margin: 15px;
@@ -124,10 +132,10 @@
 #popUp {
   position: fixed;
   padding: 5%;
-  top: 35vh;
+  top: 32vh;
   left: 22px;
-  width: 70vw;
-  height: 43vh;
+  width: 96vw;
+  height: 51vh;
   color: white;
   background-color: #5f5566;
 }

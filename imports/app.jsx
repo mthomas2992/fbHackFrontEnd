@@ -282,35 +282,38 @@ class App extends React.Component {
             currentSteps.push(<div className = "col-xs-12" id = "step">Name {this.state.newMissionSteps[j].name} Desc{this.state.newMissionSteps[j].desc}</div>)
           }
         }
-        currentSteps.push(<div onClick = {this.makePopup} className = "col-xs-12" id="stepPlaceHolder"> click to add step</div>)
+        currentSteps.push(<div onClick = {this.makePopup} className = "col-xs-12" id="stepPlaceHolder">+ Create New Step</div>)
         return (
           <div className = "container-fluid">
             <div className="row" id = "topHeader">
               <div className = "col-xs-8" id = "nameEditing">
                 <Validation.components.Form onSubmit={this.handleSubmit}>
                   <Validation.components.Input
-                    id="formInput" name="name"
+                    id="mission-form-input" name="name"
                     type="text" value={this.state.name}
                     onChange={this.handleChange}
-                    placeholder={"Name"} validations={['required']}/>
+                    placeholder={"Mission Name"} validations={['required']}/>
+                  <br></br>
                   <Validation.components.Input
-                    id="formInput" name="desc"
+                    id="mission-form-input" name="desc"
                     type="text" value={this.state.desc}
                     onChange={this.handleChange}
-                    placeholder={"Desc"} validations={['required']}/>
+                    placeholder={"Mission Description"} validations={['required']}/>
+                <br></br>
                 </Validation.components.Form>
                 <PlacesAutocomplete
+                    id="mission-form-input"
                     value={this.state.address}
                     onChange={this.handleChangeMaps}
                     onSelect={this.handleSelect}
                     autocompleteItem={AutocompleteItem}
-                    placeholder="Search Places"
+                    placeholder="Location"
                     hideLabel={true}
                     inputName="fromAddress"
                   />
               </div>
-              <div className = "col-xs-4" id = "cost">
-                Cost will go here
+              <div className = "col-xs-4" id = "cost-text">
+                COST
               </div>
             </div>
             <div className = "row" id = "stepSection">
@@ -321,8 +324,10 @@ class App extends React.Component {
                 <input id="create-mission-btn" type="submit" value="Create Mission"/>
               </Validation.components.Form>
             </div>
-            <AddStep enable = {this.state.popup} addStep = {this.addStep} hidePopup={this.hidePopup}/>
-            <ConfirmMission enable = {this.state.confirmMission} toBeConfirmed = {this.state.newMission} finalSubmit = {this.finalSubmit} hideConfirm={this.hideConfirm} steps = {this.state.newMissionSteps}/>
+            <AddStep enable = {this.state.popup}
+                addStep = {this.addStep} hidePopup={this.hidePopup}/>
+            <ConfirmMission enable = {this.state.confirmMission}
+                toBeConfirmed = {this.state.newMission} finalSubmit = {this.finalSubmit} hideConfirm={this.hideConfirm} steps = {this.state.newMissionSteps}/>
           </div>
         )
       } else if (this.props.path=="missionDetails"){

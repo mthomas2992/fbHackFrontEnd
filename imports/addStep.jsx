@@ -88,13 +88,13 @@ class AddStep extends React.Component {
             <div id='step-title'>{icon_text[this.state.creationType]}</div>
             <Validation.components.Form onSubmit={this.handleSubmit}>
               <br></br>
-              <Validation.components.Input id="step-shortform-input" name="name"
+              <Validation.components.Input id="step-form-input" name="name"
                 type="text" value={this.state.name}
                 onChange={this.handleChange}
                 placeholder={"Task Name"} validations={['required']}/>
               <br></br>
               <Validation.components.Input
-                id="step-longform-input" name="desc"
+                id="step-form-input" name="desc"
                 type="text" value={this.state.desc}
                 onChange={this.handleChange}
                 placeholder={"Task Description"} validations={['required']}/>
