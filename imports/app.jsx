@@ -218,7 +218,8 @@ class App extends React.Component {
               types={jobTypes}
               address={this.state.missions[i].address}
               desc={this.state.missions[i].desc}
-              cost={this.state.missions[i].cost}/>);
+              cost={this.state.missions[i].cost}
+              id={this.state.missions[i].id}/>);
           }
         }
 
@@ -284,6 +285,8 @@ class App extends React.Component {
             <ConfirmMission enable = {this.state.confirmMission} toBeConfirmed = {this.state.newMission} finalSubmit = {this.finalSubmit} hideConfirm={this.hideConfirm} steps = {this.state.newMissionSteps}/>
           </div>
         )
+      } else if (this.props.path=="missionDetails"){
+        return (<div>Mission Details</div>)
       } else {
         return (<div>404</div>)
       }
