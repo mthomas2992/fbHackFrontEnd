@@ -23,6 +23,7 @@ class ConfirmMission extends React.Component {
           if (res){
             this.setState({loading:false});
             this.props.finalSubmit();
+            FlowRouter.go('/');
           }
         })
       })
