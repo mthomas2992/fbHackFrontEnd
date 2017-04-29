@@ -6,6 +6,8 @@ import ReactDOM from 'react-dom';
 import {Geolocation} from 'meteor/mdg:geolocation';
 
 import GoogleMapReact from 'google-map-react';
+import Location from '/imports/location.jsx';
+import Slider from '/imports/slider.jsx';
 import Carousel from 'nuka-carousel';
 import Validation from 'react-validation';
 
@@ -38,6 +40,7 @@ class App extends React.Component {
         confirmMission:false,
         address:"",
         steps: null,
+        addressList: null
       }
 
       this.handleSubmit = this.handleSubmit.bind(this);
@@ -168,6 +171,7 @@ class App extends React.Component {
     }
 
     render() {
+
       const AutocompleteItem = ({ formattedSuggestion }) => (
         <div className="Demo__suggestion-item">
           <i className='fa fa-map-marker Demo__suggestion-icon'/>
@@ -210,8 +214,12 @@ class App extends React.Component {
                   missionType = j;
               }
             }
-            currLocations.push(<Location lat= {this.state.missions[i].lat} lng = {this.state.missions[i].long}/>);
-            carouselElements.push(<div>{this.state.missions[i].name}</div>)
+            currLocations.push(<Location type={missionType} lat= {this.state.missions[i].lat} lng = {this.state.missions[i].long}/>);
+            carouselElements.push(<Slider name={this.state.missions[i].name}
+              types={jobTypes}
+              address={this.state.missions[i].address}
+              desc={this.state.missions[i].desc}
+              cost={this.state.missions[i].cost}/>);
           }
         }
         return (<div className="container-fluid">
@@ -274,7 +282,6 @@ class App extends React.Component {
       } else {
         return (<div>404</div>)
       }
-
     }
 }
 

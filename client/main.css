@@ -2,7 +2,7 @@
 
 
 #mainMap {
-  height: 80vh;
+  height: 75vh;
   width: 100vw;
 }
 
@@ -74,5 +74,53 @@
 }
 
 #loc-icon {
+  height:40px;
   width: 40px;
+}
+
+#loc-icon-mini {
+  height:20px;
+  width: 20px;
+}
+
+/*Main Page*/
+#mission-title {
+  font-style: bold;
+  font-size: 25px;
+  color: #ffffff;
+  text-align:center;
+}
+
+#mission-desc {
+  font-size: 16px;
+  color: #ffffff;
+  font-style: italic;
+  text-align:center;
+}
+
+#mission-details {
+  font-size: 16px;
+  color: #ffffff;
+  text-align:center;
+}
+
+#slider {
+  display:block;
+  height:100%;
+  margin-top:0%;
+  margin-left: auto;
+  margin-right:auto;
+  border-style: dashed;
+  border-color: white;
+}
+
+#carousel {
+  height:30vh;
+  opacity:0.7;
+  background-color: #000000;
+}
+
+#dotted-border {
+  border-color: black;
+  border-style: dashed;
 }
