@@ -19,6 +19,8 @@ import {geocodeByAddress} from 'react-places-autocomplete';
 
 import MissionCompleter from '/imports/missionCompleter.jsx';
 
+import MissionAnalytics from '/imports/missionAnalytics.jsx'
+
 
 
 // Types of Work
@@ -472,6 +474,8 @@ class App extends React.Component {
                 </div>)
       } else if (this.props.path == "missionCompleter"){
         return (<div className = "container-fluid"> <MissionCompleter userID = {this.state.currUserID} missionDetails={this.state.currentMissionDetails}/></div>)
+      }  else if (this.props.path == "missionAnalytics"){
+        return (<div className = "container-fluid"> <MissionAnalytics missionActive = {this.props.queryParams.id}/></div>)
       } else {
         return (<div>404</div>)
       }
