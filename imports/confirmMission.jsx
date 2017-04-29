@@ -36,14 +36,26 @@ class ConfirmMission extends React.Component {
       if (this.props.enable){
         if (this.state.loading==false){
           return (<div id = "confirmMission">
-                    Name : {this.props.toBeConfirmed.name}
-                    Lat : {this.props.toBeConfirmed.lat}
-                    Long : {this.props.toBeConfirmed.long}
-                    Author : {this.props.toBeConfirmed.author}
-                    Desc : {this.props.toBeConfirmed.desc}
-                    Cost : {this.props.toBeConfirmed.cost}
-                    <div onClick={()=>{this.postMission()}}> Submit</div>
-                    <div onClick={()=>{this.cancelMission()}}> Cancel</div>
+                    <div id="cfm-text">
+                      Name : {this.props.toBeConfirmed.name}</div>
+                      <br></br>
+                      <div id="cfm-text">
+                      Lat : {this.props.toBeConfirmed.lat}</div>
+                      <br></br>
+                      <div id="cfm-text">
+                      Long : {this.props.toBeConfirmed.long}</div>
+                      <br></br>
+                      <div id="cfm-text">
+                      Author : {this.props.toBeConfirmed.author}</div>
+                      <br></br>
+                      <div id="cfm-text">
+                      Desc : {this.props.toBeConfirmed.desc}</div>
+                      <br></br>
+                      <div id="cfm-text">
+                      Cost : {this.props.toBeConfirmed.cost}</div>
+                      <br></br>
+                    <div id="cfm-btn" onClick={()=>{this.postMission()}}> Submit</div>
+                    <div id="cfm-btn" onClick={()=>{this.cancelMission()}}> Cancel</div>
                   </div>)
         } else {
           return (<div></div>)
