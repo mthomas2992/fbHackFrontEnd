@@ -88,6 +88,8 @@ class App extends React.Component {
       this.startMission = this.startMission.bind(this);
 
       this.goToProfile = this.goToProfile.bind(this);
+
+      this.createNewMissionLink = this.createNewMissionLink.bind(this);
     };
 
     componentWillMount(){
@@ -325,6 +327,10 @@ class App extends React.Component {
         }
     }
 
+    createNewMissionLink(){
+      FlowRouter.go('/missionCreator');
+    }
+
     render() {
       const AutocompleteItem = ({ formattedSuggestion }) => (
         <div className="Demo__suggestion-item">
@@ -444,6 +450,9 @@ class App extends React.Component {
                     </div>
                     <div onClick={()=>{this.goToProfile()}} id="myProfile">
                       <img id="myProfileImgSrc" src="https://www.book2trip.com/template/website/img/profile.png"></img>
+                    </div>
+                    <div onClick={()=>{this.createNewMissionLink()}} id="createNewMissionLink">
+                      <img id="createNewMissionsrc" src="https://image.flaticon.com/icons/svg/60/60745.svg"></img>
                     </div>
                 </div>);
       } else if (this.props.path == "missionCreator"){
