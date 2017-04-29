@@ -565,6 +565,8 @@ class App extends React.Component {
                 </div></div>)
       } else if (this.props.path == "missionCompleter"){
         return (<div className = "container-fluid"> <MissionCompleter userID = {this.state.currUserID} missionDetails={this.state.currentMissionDetails}/></div>)
+    } else if (this.props.path== "missionAnalytics"){
+      return (<div className = "container-fluid"> <MissionAnalytics missionActive = {this.props.queryParams.id}/></div>)
     } else if (this.props.path == "profile") {
 
       var completedMissions = this.getCompletedMissions();
