@@ -383,3 +383,65 @@
   padding: 5px;
   max-width: 15vw;
 }
+
+#profile-page {
+    img {
+        $size: 10em;
+        width: $size;
+        height: $size;
+        margin: 1em;
+    }
+
+    #top-header {
+        background-color: #f8f8f8;
+    }
+
+    #body-div {
+        background-color: #3b5998;
+        height: 100vh;
+
+        #current-mission {
+            margin: 1em;
+            background-color: #59983b;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+            border-radius: 2px;
+
+            > div {
+                margin: 1em;
+            }
+        }
+
+        .profile-comp-missions {
+            margin: 1em;
+            background-color: #4c6aa9;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+            border-radius: 2px;
+
+            > div {
+                margin: 1em;
+            }
+        }
+    }
+
+    #left-col {
+        display: inline-block;
+
+        p {
+            margin-left: 1em;
+        }
+    }
+
+    #right-col {
+        height: 100%;
+        width: 50%;
+        display: inline-block;
+
+        h1 {
+            text-align: right;
+        }
+
+        button {
+            margin-left: 8em;
+        }
+    }
+}
