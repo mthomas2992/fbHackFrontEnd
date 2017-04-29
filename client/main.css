@@ -6,6 +6,45 @@
   width: 100vw;
 }
 
+
+#mission-otw-name {
+  font-size: 30px;
+  font-weight: bold;
+  color:white;
+  padding-top: 10%;
+  padding-left: 10%;
+}
+#mission-otw-desc {
+  color:white;
+  font-size: 20px;
+  padding-top: 10%;
+  padding-left: 10%;
+}
+
+#step-icon-mini {
+  padding-top:5%;
+  height:60px;
+  width: 60px;
+  display: block;
+}
+#step-actual-info {
+  border-color: grey;
+  background-color: #eaedf2;
+  padding-top: 4%;
+  height: 14vh;
+  width: 90vw;
+  margin: 15px;
+}
+
+#step-actual-name {
+  font-size: 20px;
+  font-weight: bold;
+}
+#step-actual-desc {
+  font-size: 16px;
+  font-style: italic;
+}
+/*Mission Creator*/
 #topHeader{
   height: 30vh;
   width: 100vw;
@@ -28,21 +67,31 @@
   padding-left: 5%;
 }
 
-#cost-text {
-  font-size:20px;
-  font-weight:bold;
+
+#org-circle {
+  position: relative;
+  width: 95px;
+  height: 95px;
   display: block;
   margin: 0 auto;
-  padding-top: 5%;
-  padding-left: 8.5%;
+}
+
+#cost-text {
+  position: absolute;
+  top:65px;
+  right: 45px;
+  font-size:25px;
+  font-weight:bold;
   color: white;
 }
 
 #cost-area {
-  border-style: dashed;
-  border-color: black;
   background-color: #80ada0;
   height: 25vh;
+  display: block;
+  margin: 0 auto;
+  padding-top: 10%;
+  padding-left: 3%;
 }
 
 #missionDetailsTopper {
@@ -61,8 +110,11 @@
 #create-mission-btn {
   font-size: 30px;
   font-weight: bold;
+  text-align: center;
   background-color: #80ada0;
   padding: 7.5%;
+  display: block;
+  margin: 0 auto;
   border:0;
   color: white;
   height: 100%;
@@ -216,8 +268,6 @@
 }
 
 #startMission {
-  border-color: black;
-  border-style: dashed;
   height: 15vh;
   width: 100vw;
   border-style: dashed;
