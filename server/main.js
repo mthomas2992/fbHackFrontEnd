@@ -23,7 +23,7 @@ Meteor.startup(() => {
     // },
 
     'getMissions' :function() {
-      var queryString = "https://fbht17.herokuapp.com/missions/";
+      var queryString = "https://fbht17.herokuapp.com/missions";
       var result = HTTP.get(queryString);
       //console.log(result);
 
@@ -137,6 +137,12 @@ Meteor.startup(() => {
                 "image": base64EncodedImage
             }});
         return result.data.image;
+    },
+      
+    'getStep':function(id){
+      var queryString= "https://fbht17.herokuapp.com/steps/"+id;
+      var result = HTTP.get(queryString);
+      return result;
     }
 
   });

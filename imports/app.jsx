@@ -17,6 +17,8 @@ import ConfirmMission from '/imports/confirmMission.jsx';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import {geocodeByAddress} from 'react-places-autocomplete';
 
+import MissionComplete from '/imports/missionCompleter.jsx';
+
 
 
 // Types of Work
@@ -40,7 +42,8 @@ class App extends React.Component {
         address:"",
         steps: null,
         addressList: null,
-        currentMissionDetails:null
+        currentMissionDetails:null,
+        currentMissionSteps:null
       }
 
       this.handleSubmit = this.handleSubmit.bind(this);
@@ -181,8 +184,6 @@ class App extends React.Component {
       if (this.state.missions==null){
         return (<div>loading....</div>)
       } else if (this.props.path == "home"){
-        var test = Geolocation.latLng();
-        console.log(test);
         var currLocations = new Array();
         var carouselElements = new Array();
         if (this.state.missions){
@@ -299,18 +300,33 @@ class App extends React.Component {
             }
           }
         }
-        console.log(currentMissionDetails);
+        var missionSteps = this.state.currentMissionSteps;
+        if (missionSteps==null){
+          missionSteps = new Array();
+          var self=this
+          for (j=0;j<currentMissionDetails.steps.length;j++){
+            Meteor.call('getStep',currentMissionDetails.steps[j],function(err,res){
+              console.log(res);
+              missionSteps.push(<div className = "col-xs-12" id = "step">Name {res.data.name} Desc{res.data.desc}</div>);
+              self.setState({currentMissionSteps:missionSteps});
+            })
+          }
+        }
+
+
         return (<div className = "container-fluid">
                   <div className="row" id = "missionDetailsTopper">
                     Title : {currentMissionDetails.name}
                   </div>
                   <div className= "row" id="stepBodyInfo">
-
+                    {missionSteps}
                   </div>
                   <div className="row" id="startMission">
                     Start Mission
                   </div>
                 </div>)
+      } else if (this.props.path == "missionCompleter"){
+        return (<div className = "container-fluid"> <MissionCompleter missionDetails={this.state.currentMissionDetails} missionSteps={this.state.currentMissionSteps}/></div>)
       } else {
         return (<div>404</div>)
       }
