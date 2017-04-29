@@ -39,19 +39,22 @@ class MissionAnalytics extends React.Component {
 
             }
           }
-          resultPages.push(<div id="rootStepAnalytics" className="row">
-                            <div className = "col-xs-12">
-                              Step: {k+1} , {this.state.missionStepDetails[k].stepInfo.name}
-                            </div>
-                            {elementToBePushed}
-                          </div>);
+          resultPages.push(
+            <div id="rootStepAnalytics" className="row">
+                    <div className = "col-xs-12" id="step-analysis-title">
+                      Step: {k+1} , {this.state.missionStepDetails[k].stepInfo.name}
+                    </div>
+                    {elementToBePushed}
+                  </div>);
         }
         if (resultPages.length==0){
           resultPages=<div>No Results yet!</div>;
         }
         return (<div className="row" >
-                  <div className = "col-xs-12" id = "topMissionAnalyticsHeader">
-                    Mission analytics for {this.props.missionActive}
+                  <div className = "col-xs-12" id = "topHeader">
+                    <div id="mission-analytics-name">
+                      Mission Analytics
+                    </div>
                   </div>
                   {resultPages}
                 </div>
