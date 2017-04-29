@@ -22,3 +22,4 @@ static-html
 kadira:flow-router
 http
 twbs:bootstrap
+mdg:geolocation

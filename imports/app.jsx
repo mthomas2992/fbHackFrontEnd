@@ -3,7 +3,10 @@ import { HTTP } from 'meteor/http';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import {Geolocation} from 'meteor/mdg:geolocation';
+
 import GoogleMapReact from 'google-map-react';
+import Location from '/imports/location.jsx';
 
 class App extends React.Component {
 
@@ -12,15 +15,26 @@ class App extends React.Component {
 
     };
 
+    componentWillMount(){
+      Meteor.call('getMissions',function (err,res){
+        console.log(res);
+      })
+    }
+
 
     render() {
-    return (<div id = "mainMap">
-      <GoogleMapReact
-        center={[-33.8688197, 151.20929550000005]}
-      zoom={15}>
+      var test = Geolocation.latLng();
+      console.log(test);
+      return (<div className="container-fluid">
+                  <div className = "row" id ="mainMap">
+                    <GoogleMapReact
+                      center={[-33.8688197, 151.20929550000005]}
+                      zoom={15}
+                    >
 
-</GoogleMapReact>
-            </div>)
+                    </GoogleMapReact>
+                  </div>
+              </div>)
 
     }
 }
