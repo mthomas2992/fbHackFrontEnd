@@ -178,43 +178,66 @@ class App extends React.Component {
       FlowRouter.go('/missionCompleter')
     }
 
-    render() {
+    maxHeight (className) {
+      var cols = document.getElementsByClassName(className);
+      for(i=0; i<cols.length; i++) {
+        cols[i].style.height = '100%';
+      }
+    }
 
+    componentDidUpdate() {
+      this.maxHeight('slider');
+      this.maxHeight('slider-frame');
+      this.maxHeight('slider-list');
+      this.maxHeight('slider-slide');
+
+      var cols = document.querySelectorAll("ul");
+      for(i=0; i<cols.length; i++) {
+        cols[i].style.height = '100%';
+      }
+    }
+
+    render() {
       const AutocompleteItem = ({ formattedSuggestion }) => (
         <div className="Demo__suggestion-item">
           <i className='fa fa-map-marker Demo__suggestion-icon'/>
           <strong>{formattedSuggestion.mainText}</strong>{' '}
           <small className="text-muted">{formattedSuggestion.secondaryText}</small>
         </div>);
+
       if (this.state.missions==null){
         return (<div>loading....</div>)
       } else if (this.props.path == "home"){
         var currLocations = new Array();
         var carouselElements = new Array();
+        var jobTypes=[0,0,0,0,0];
         if (this.state.missions){
-          console.log(this.state.missions);
           for (i=0;i<this.state.missions.length;i++){
 
             // Count up task types
-            var jobTypes=[0,0,0,0,0];
-            for (j=0; j<this.state.steps[j].length; j++) {
-              if (parseInt(this.state.steps[i].mission) == j) {
+            jobTypes=[0,0,0,0,0];
+            for (j=0; j<this.state.steps.length; j++) {
+              if (parseInt(this.state.steps[j].mission) == i) {
                 switch(this.state.steps[i].type) {
+                  case "camera":
+                    jobTypes[PHOTO]++; break;
                   case "photo":
-                    jobTypes[PHOTO] += 1; break;
-                  case "travel":
-                    jobTypes[TRAVEL] += 1; break;
+                    jobTypes[PHOTO]++; break;
+                  case "direction":
+                    jobTypes[TRAVEL]++; break;
                   case "shortQ":
-                    jobTypes[SHORTQ] += 1;  break;
+                    jobTypes[SHORTQ]++;  break;
+                  case "sht_ans":
+                    jobTypes[SHORTQ]++;  break;
                   case "longQ":
-                    jobTypes[LONGQ] += 1; break;
+                    jobTypes[LONGQ]++; break;
                   case "work":
-                    jobTypes[WORK] += 1; break;
+                    jobTypes[WORK]++; break;
                   default: break;
                 }
               }
             }
-
+            console.log(jobTypes);
             var missionType = 0;
             for (j=0; j<5; j++) {
               if (jobTypes[j] > jobTypes[missionType]) {
@@ -233,9 +256,9 @@ class App extends React.Component {
 
         var Decorators = [{     //Removed buttons
         component: React.createClass({
-          render() {return null }})
+          render() {return null }})}];
 
-          }];
+
         return (<div className="container-fluid">
                     <div className = "row" id ="mainMap">
                       <GoogleMapReact
@@ -246,7 +269,8 @@ class App extends React.Component {
                       </GoogleMapReact>
                     </div>
                     <div className = "row" id = "carousel">
-                      <Carousel decorators={Decorators}>
+                      <Carousel decorators={Decorators}
+                        afterSlide={this.afterSlide}>
                         {carouselElements}
                       </Carousel>
                     </div>
