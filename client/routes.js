@@ -43,3 +43,9 @@ FlowRouter.route('/missionCompleter', {
     ReactDOM.render(<App path="missionCompleter" />, document.getElementById('app'));
   }
 });
+
+FlowRouter.route('/profile', {
+  action(params, queryParams) {
+    ReactDOM.render(<App path="profile"/>, document.getElementById('app'));
+  }
+});
