@@ -3,6 +3,8 @@ import { HTTP } from 'meteor/http';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import GoogleMapReact from 'google-map-react';
+
 class App extends React.Component {
 
     constructor(props){
@@ -12,9 +14,13 @@ class App extends React.Component {
 
 
     render() {
-    return (<div>
+    return (<div id = "mainMap">
+      <GoogleMapReact
+        center={[-33.8688197, 151.20929550000005]}
+      zoom={15}>
 
-              </div>)
+</GoogleMapReact>
+            </div>)
 
     }
 }

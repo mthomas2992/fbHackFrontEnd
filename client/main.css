@@ -1,1 +1,9 @@
 /* CSS declarations go here */
+
+
+#mainMap {
+  height: 500px;
+  width: 500px;
+  border-style: dashed;
+  border-color: black;
+}
