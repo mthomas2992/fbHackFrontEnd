@@ -11,7 +11,6 @@ import Slider from '/imports/slider.jsx';
 import Carousel from 'nuka-carousel';
 import Validation from 'react-validation';
 
-import Location from '/imports/location.jsx';
 import AddStep from '/imports/addStep.jsx';
 import ConfirmMission from '/imports/confirmMission.jsx';
 
@@ -222,6 +221,12 @@ class App extends React.Component {
               cost={this.state.missions[i].cost}/>);
           }
         }
+
+        var Decorators = [{     //Removed buttons
+        component: React.createClass({
+          render() {return null }})
+
+          }];
         return (<div className="container-fluid">
                     <div className = "row" id ="mainMap">
                       <GoogleMapReact
@@ -231,8 +236,8 @@ class App extends React.Component {
                       {currLocations}
                       </GoogleMapReact>
                     </div>
-                    <div className = "row">
-                      <Carousel>
+                    <div className = "row" id = "carousel">
+                      <Carousel decorators={Decorators}>
                         {carouselElements}
                       </Carousel>
                     </div>
