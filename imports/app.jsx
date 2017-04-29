@@ -17,6 +17,8 @@ import ConfirmMission from '/imports/confirmMission.jsx';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import {geocodeByAddress} from 'react-places-autocomplete';
 
+import MissionComplete from '/imports/missionCompleter.jsx';
+
 
 
 // Types of Work
@@ -323,6 +325,8 @@ class App extends React.Component {
                     Start Mission
                   </div>
                 </div>)
+      } else if (this.props.path == "missionCompleter"){
+        return (<div className = "container-fluid"> <MissionCompleter missionDetails={this.state.currentMissionDetails} missionSteps={this.state.currentMissionSteps}/></div>)
       } else {
         return (<div>404</div>)
       }
