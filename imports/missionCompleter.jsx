@@ -45,7 +45,7 @@ class MissionCompleter extends React.Component {
       }
     }
 
-    nextStep(nextStep,id,data,type){
+    nextStep(nextStep,id,data,type,step){
       var nextString = nextStep.toString();
       if (type=="skip"){
         scroller.scrollTo(nextString, {
@@ -59,7 +59,10 @@ class MissionCompleter extends React.Component {
       var newID = id;
       this.setState({verificationStatus:"Verifying.."});
       if (type == "camera"){
-        Meteor.call('getImageUrl',data,function(err,res){
+        var screenshot = this.refs[step].getScreenshot();
+        var full =screenshot.split(",");
+        Meteor.call('getImageUrl',full[1],function(err,res){
+          console.log(res);
           Meteor.call('createResult',self.props.userID,newID,res,function(err,res){
             if (res) {
               scroller.scrollTo(nextString, {
@@ -67,9 +70,9 @@ class MissionCompleter extends React.Component {
                   delay: 0,
                   smooth: true,
                 });
-              this.setState({verificationStatus:"Next Step"});
+              self.setState({verificationStatus:"Next Step"});
             } else {
-              this.setState({verificationStatus:"Sorry, verification failed"});
+              self.setState({verificationStatus:"Sorry, verification failed"});
             }
           })
         })
@@ -83,16 +86,10 @@ class MissionCompleter extends React.Component {
     }
 
     takePhoto(step){
-      var screenshot = this.refs[step].getScreenshot();
-      var full =screenshot.split(",");
-      console.log(full);
-      console.log(full[1]);
-      this.setState({[step]:full[1]});
-      console.log(screenshot);
+
     }
 
     render() {
-      console.log(this.props);
       if (this.state.loadingSteps == false){
         var steps = new Array();
         steps.push(<Element name="0">
@@ -104,35 +101,43 @@ class MissionCompleter extends React.Component {
                       </div>
                     </Element>);
         for (s=0;s<this.state.steps.length;s++){
-          console.log(this.state.steps[s]);
+          var body = null;
           if (this.state.steps[s].type=="camera"){
             var camRef = "webcam"+(s+1);
             var currId = this.state.steps[s].id;
-            steps.push(<Element name={""+(s+1)+""}>
-                        <div id="stepComplete" className = "row">
-                          <div className = "col-xs-12">
-                            Step {this.state.steps[s].name}
-                            id {this.state.steps[s].id}
-                            <Webcam
-                              screenshotFormat = 'image/jpeg'
-                              width='212'
-                              height='160'
-                              ref={camRef}/>
-                          </div>
-                          <div onClick={()=>{this.takePhoto(camRef)}}> take photo</div>
-                          <div onClick={()=>{this.nextStep(s+2,currId,this.state[camRef],"camera")}}> {this.state.verificationStatus}</div>
-                        </div>
-                      </Element>)
+            var interpretStatus = this.state.verificationStatus
+            if (interpretStatus=="Next Step"){
+              interpretStatus = "Take photo"
+            }
+            body= <div className = "col-xs-12">
+                      <div className = "row">
+                        <Webcam
+                          screenshotFormat = 'image/jpeg'
+                          width='212'
+                          height='160'
+                          ref={camRef}/>
+                      </div>
+                      <div className = "row" onClick={()=>{this.nextStep(s+2,currId,this.state[camRef],"camera",camRef)}}> {interpretStatus}</div>
+                  </div>
           } else {
-            steps.push(<Element name={""+(s+1)+""}>
+            body= <div className = "col-xs-12">
+                      <div className = "row">
+                        Text input will go here
+                      </div>
+                      <div className = "row" onClick={()=>{this.nextStep(s+2,currId,this.state[camRef],"camera",camRef)}}> {this.state.verificationStatus}</div>
+                  </div>;
+          }
+          steps.push(<Element name={""+(s+1)+""}>
                         <div id="stepComplete" className = "row">
                           <div className = "col-xs-12">
-                            Step {this.state.steps[s].name}
+                            {this.state.steps[s].name}
                           </div>
-                          <div onClick={()=>{this.nextStep(s+2)}}> {this.state.verificationStatus}</div>
+                          <div className = "col-xs-12">
+                            {this.state.steps[s].desc}
+                          </div>
+                          {body}
                         </div>
                       </Element>)
-          }
 
         };
 
