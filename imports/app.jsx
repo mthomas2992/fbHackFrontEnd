@@ -182,9 +182,14 @@ class App extends React.Component {
 
     componentDidUpdate() {
       this.maxHeight('slider');
-      this.maxHeight('slider-frame')
-      this.maxHeight('slider-slide')
-      this.maxHeight('slider-list')
+      this.maxHeight('slider-frame');
+      this.maxHeight('slider-list');
+      this.maxHeight('slider-slide');
+
+      var cols = document.querySelectorAll("ul");
+      for(i=0; i<cols.length; i++) {
+        cols[i].style.height = '100%';
+      }
     }
 
     render() {
@@ -208,23 +213,26 @@ class App extends React.Component {
             jobTypes=[0,0,0,0,0];
             for (j=0; j<this.state.steps.length; j++) {
               if (parseInt(this.state.steps[j].mission) == i) {
-                console.log("Switching")
                 switch(this.state.steps[i].type) {
                   case "camera":
-                    jobTypes[PHOTO] += 1; break;
+                    jobTypes[PHOTO]++; break;
+                  case "photo":
+                    jobTypes[PHOTO]++; break;
                   case "direction":
-                    jobTypes[TRAVEL] += 1; break;
+                    jobTypes[TRAVEL]++; break;
                   case "shortQ":
-                    jobTypes[SHORTQ] += 1;  break;
+                    jobTypes[SHORTQ]++;  break;
+                  case "sht_ans":
+                    jobTypes[SHORTQ]++;  break;
                   case "longQ":
-                    jobTypes[LONGQ] += 1; break;
+                    jobTypes[LONGQ]++; break;
                   case "work":
-                    jobTypes[WORK] += 1; break;
+                    jobTypes[WORK]++; break;
                   default: break;
                 }
               }
             }
-
+            console.log(jobTypes);
             var missionType = 0;
             for (j=0; j<5; j++) {
               if (jobTypes[j] > jobTypes[missionType]) {

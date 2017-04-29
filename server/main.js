@@ -6,8 +6,7 @@ Meteor.startup(() => {
     'getAddressFromLatLng' : function(lat,lng) {
       var queryString = "https://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+lng+"&key=AIzaSyAWG2Klg1bfrz8DrWhB9L5Vz2lAVQHyr3o";
       var result = HTTP.get(queryString);
-      var formatted =JSON.parse(result.content)
-      console.log(JSON.parse(result.content));
+      var formatted =JSON.parse(result.content);
       return formatted.results[0].formatted_address;
     },
     //
@@ -53,7 +52,7 @@ Meteor.startup(() => {
     },
 
     'createSteps' : function(steps,missionID){
-      console.log(missionID);
+      //console.log(missionID);
       for (i=0;i<steps.length;i++){
         var queryString = "https://fbht17.herokuapp.com/steps/";
         var result = HTTP.post(queryString,{params:{
@@ -63,7 +62,7 @@ Meteor.startup(() => {
           "name":steps[i].name,
           "mission":missionID
         }});
-        console.log(result);
+        //console.log(result);
       }
 
     },

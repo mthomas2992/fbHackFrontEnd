@@ -105,14 +105,14 @@
 }
 
 #mission-desc {
-  font-size: 16px;
+  font-size: 18px;
   color: #ffffff;
   font-style: italic;
   text-align:center;
 }
 
 #mission-details {
-  font-size: 16px;
+  font-size: 18px;
   color: #ffffff;
   text-align:center;
 }
@@ -120,11 +120,9 @@
 #slider {
   display:block;
   height:100%;
-  margin-top:0%;
+  padding-top:6%;
   margin-left: auto;
   margin-right:auto;
-  border-style: dashed;
-  border-color: white;
 }
 
 #carousel {
