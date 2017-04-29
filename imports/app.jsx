@@ -43,7 +43,9 @@ class App extends React.Component {
         steps: null,
         addressList: null,
         currentMissionDetails:null,
-        currentMissionSteps:null
+        currentMissionSteps:null,
+        login_email:"",
+        login_password:""
       }
 
       this.handleSubmit = this.handleSubmit.bind(this);
@@ -55,6 +57,7 @@ class App extends React.Component {
       this.loadMissions = this.loadMissions.bind(this);
       this.hideConfirm = this.hideConfirm.bind(this);
 
+      this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
       this.handleSelect = this.handleSelect.bind(this);
       this.handleChangeMaps = this.handleChangeMaps.bind(this);
       this.startMission = this.startMission.bind(this);
@@ -134,6 +137,12 @@ class App extends React.Component {
       this.setState({confirmMission:true});
     }
 
+    handleLoginSubmit(event) {
+        event.preventDefault();
+        console.log(this.state);
+        console.log(event);
+    }
+
     handleChange(event) {
       const target = event.target;
       const value = target.value;
@@ -207,6 +216,23 @@ class App extends React.Component {
 
       if (this.state.missions==null){
         return (<div>loading....</div>)
+      } else if (this.props.path == "landing") {
+          return (
+          <div className="container-fluid" id="landing-page">
+           <div className="row">
+                <h1>Welcome</h1>
+                <Validation.components.Form onSubmit={this.handleLoginSubmit}>
+                  <h2>Email</h2>
+                  <Validation.components.Input id="formInput" name="login_email" type="text" value={this.state.login_email} onChange={this.handleChange} placeholder={"Email"} validations={['required']}/>
+                  <h2>Password</h2>
+                  <Validation.components.Input id="formInput" name="login_password" type="text" value={this.state.login_password} onChange={this.handleChange} placeholder={"Password"} validations={['required']}/>
+                  <br/>
+                  <Validation.components.Input id="formInput" type="submit" value="Login!"/>
+                </Validation.components.Form>
+                <p>No account? Register here</p>
+            </div>
+          </div>
+          );
       } else if (this.props.path == "home"){
         var currLocations = new Array();
         var carouselElements = new Array();
