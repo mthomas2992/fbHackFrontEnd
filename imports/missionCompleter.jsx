@@ -82,7 +82,7 @@ class MissionCompleter extends React.Component {
 
     finishMission() {
       this.setState({steps:null,loadingSteps:false,currStep:0});
-      FlowRouter.go('/');
+      FlowRouter.go('/home');
     }
 
     takePhoto(step){
