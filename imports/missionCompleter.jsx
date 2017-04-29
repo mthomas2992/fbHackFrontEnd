@@ -4,6 +4,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import Scroll from 'react-scroll';
+import Validation from 'react-validation';
+
 
 var Link = Scroll.Link;
 var Element    = Scroll.Element;
@@ -28,6 +30,7 @@ class MissionCompleter extends React.Component {
       this.nextStep = this.nextStep.bind(this);
       this.finishMission = this.finishMission.bind(this);
       this.takePhoto = this.takePhoto.bind(this);
+      this.handleChange = this.handleChange.bind(this);
     };
 
     componentWillMount(){
@@ -44,6 +47,15 @@ class MissionCompleter extends React.Component {
         })
       }
     }
+
+    handleChange(event) {
+      const target = event.target;
+      const value = target.value;
+      const name = target.name;
+      this.setState({
+        [name]: value
+      });
+    };
 
     nextStep(nextStep,id,data,type,step){
       var nextString = nextStep.toString();
@@ -76,6 +88,19 @@ class MissionCompleter extends React.Component {
             }
           })
         })
+      } else if (type == "shortQ"){
+        Meteor.call('createResult',self.props.userID,newID,self.state[camRef],function(err,res){
+          if (res) {
+            scroller.scrollTo(nextString, {
+                duration: 1500,
+                delay: 0,
+                smooth: true,
+              });
+            self.setState({verificationStatus:"Next Step"});
+          } else {
+            self.setState({verificationStatus:"Sorry, verification failed"});
+          }
+        })
       }
 
     }
@@ -102,8 +127,8 @@ class MissionCompleter extends React.Component {
                     </Element>);
         for (s=0;s<this.state.steps.length;s++){
           var body = null;
+          var camRef = "webcam"+(s+1);
           if (this.state.steps[s].type=="camera"){
-            var camRef = "webcam"+(s+1);
             var currId = this.state.steps[s].id;
             var interpretStatus = this.state.verificationStatus
             if (interpretStatus=="Next Step"){
@@ -122,9 +147,15 @@ class MissionCompleter extends React.Component {
           } else {
             body= <div className = "col-xs-12">
                       <div className = "row">
-                        Text input will go here
+                        <Validation.components.Form onSubmit={this.handleSubmit}>
+                          <Validation.components.Input
+                            id="mission-form-input" name={camRef}
+                            type="text" value={this.state.name}
+                            onChange={this.handleChange}
+                            placeholder={"Your answer here.."} validations={['required']}/>
+                        </Validation.components.Form>
                       </div>
-                      <div className = "row" onClick={()=>{this.nextStep(s+2,currId,this.state[camRef],"camera",camRef)}}> {this.state.verificationStatus}</div>
+                      <div className = "row" onClick={()=>{this.nextStep(s+2,currId,this.state[camRef],"shortQ",camRef)}}> {this.state.verificationStatus}</div>
                   </div>;
           }
           steps.push(<Element name={""+(s+1)+""}>
