@@ -19,7 +19,10 @@ import {geocodeByAddress} from 'react-places-autocomplete';
 
 import MissionCompleter from '/imports/missionCompleter.jsx';
 
-import MissionAnalytics from '/imports/missionAnalytics.jsx'
+import MissionAnalytics from '/imports/missionAnalytics.jsx';
+
+import {geolocated} from 'react-geolocated';
+
 
 const PHOTO_ICON = "http://icons.iconarchive.com/icons/pelfusion/long-shadow-media/512/Camera-icon.png";
 const TRAVEL_ICON = "https://cdn2.iconfinder.com/data/icons/flatte-maps-and-navigation/80/04_-_Walking-512.png";
@@ -283,7 +286,7 @@ class App extends React.Component {
           <small className="text-muted">{formattedSuggestion.secondaryText}</small>
         </div>);
 
-      if (this.state.missions==null){
+      if (this.state.missions==null || this.props.coords==null){
         return (<div>loading....</div>)
       } else if (this.props.path == "landing") {
           return (
@@ -375,13 +378,14 @@ class App extends React.Component {
         component: React.createClass({
           render() {return null }})}];
 
-
+          console.log(this.props);
         return (<div className="container-fluid">
                     <div className = "row" id ="mainMap">
                       <GoogleMapReact
-                        center={[-33.8688197, 151.20929550000005]}
+                        center={[this.props.coords.latitude, this.props.coords.longitude]}
                         zoom={15}
                       >
+                      <Location type={5} lat={this.props.coords.latitude} lng = {this.props.coords.longitude}/>
                       {currLocations}
                       </GoogleMapReact>
                     </div>
@@ -519,4 +523,12 @@ class App extends React.Component {
     }
 }
 
-export default App;
+// export default App;
+
+
+export default geolocated({
+  positionOptions: {
+    enableHighAccuracy: false,
+  },
+  userDecisionTimeout: 5000
+})(App);
